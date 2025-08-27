@@ -1,4 +1,4 @@
-# Pentaho+ OSS Reports
+# Pentaho OSS Reports
 
 This repository contains the OSS reports for the Pentaho+ releases. Please consult the appropriate section for your product.
 
