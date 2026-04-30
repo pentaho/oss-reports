@@ -1,0 +1,46 @@
+# Manifest for automated SBOM publishing
+# Maps pdia-security project names to product folders and metadata.
+# Used by CI to determine where to publish SBOMs after generation.
+#
+# Build names follow the pattern: {project}-{branch}
+#   e.g. pdia-master, pdia-11.1, pdi-openlineage-plugin-ee-main
+# The project key is the build name minus the branch suffix.
+# Exception: pdc-docker-deployment (no branch suffix pattern).
+#
+# Naming convention for published files:
+#   sbom-{build-name}-{version}.zip
+#
+# Example: build "pdi-openlineage-plugin-ee-main" version "0.7.0-292"
+#   -> openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip
+#
+# README automation:
+#   Each project has HTML comment markers in README.md:
+#     <!-- project:{project-key} -->
+#     ... table rows ...
+#     <!-- /project:{project-key} -->
+#   To publish: insert a new table row before the closing marker.
+#   Row format: | {version} | CycloneDX | [{filename}]({folder}/{filename}) |
+
+projects:
+
+  pdia:
+    name: "Pentaho Data Integration and Analytics"
+    description: "Full Pentaho platform suite SBOM"
+    folder: "pentaho-suite"
+    branches:
+      - master
+      - "11.1"
+
+  pdi-openlineage-plugin-ee:
+    name: "Pentaho Data Lineage Plugin"
+    description: "OpenLineage plugin for Pentaho Data Integration"
+    folder: "openlineage-plugin"
+    branches:
+      - main
+      - "1.1.0"
+
+  pdc-docker-deployment:
+    name: "Pentaho Data Catalog"
+    description: "Pentaho Data Catalog SBOM"
+    folder: "pentaho-catalog"
+    build_name_is_project: true  # no branch suffix pattern
