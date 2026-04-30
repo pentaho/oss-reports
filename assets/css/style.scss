@@ -1,0 +1,162 @@
+---
+---
+
+@import "jekyll-theme-cayman";
+
+/* Pentaho branding overrides for Cayman theme */
+
+:root {
+  --pentaho-navy: #1B2A4A;
+  --pentaho-blue: #00A3E0;
+  --pentaho-dark-blue: #004B87;
+  --pentaho-light-gray: #F5F7FA;
+  --pentaho-text: #333333;
+  --pentaho-white: #FFFFFF;
+}
+
+/* Header gradient - Pentaho navy to blue */
+.page-header {
+  background-image: linear-gradient(120deg, var(--pentaho-navy), var(--pentaho-dark-blue)) !important;
+  padding: 3rem 2rem !important;
+}
+
+.page-header h1 {
+  font-weight: 300 !important;
+  letter-spacing: 0.02em;
+}
+
+.project-tagline {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 300 !important;
+}
+
+/* CTA buttons in header */
+.btn {
+  border-color: var(--pentaho-blue) !important;
+  color: var(--pentaho-blue) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn:hover {
+  background-color: var(--pentaho-blue) !important;
+  color: var(--pentaho-white) !important;
+}
+
+/* Body text */
+.main-content {
+  font-size: 16px !important;
+  color: var(--pentaho-text) !important;
+}
+
+/* Headings */
+.main-content h1,
+.main-content h2 {
+  color: var(--pentaho-navy) !important;
+  border-bottom: 1px solid #e0e6ed !important;
+  padding-bottom: 0.4em !important;
+}
+
+.main-content h3 {
+  color: var(--pentaho-dark-blue) !important;
+}
+
+/* Links */
+.main-content a {
+  color: var(--pentaho-blue) !important;
+  text-decoration: none !important;
+}
+
+.main-content a:hover {
+  color: var(--pentaho-dark-blue) !important;
+  text-decoration: underline !important;
+}
+
+/* Tables */
+.main-content table th {
+  background-color: var(--pentaho-navy) !important;
+  color: var(--pentaho-white) !important;
+  padding: 10px 14px !important;
+  font-weight: 500 !important;
+}
+
+.main-content table td {
+  padding: 10px 14px !important;
+  border-color: #e0e6ed !important;
+}
+
+.main-content table tr:nth-child(even) {
+  background-color: var(--pentaho-light-gray) !important;
+}
+
+/* Download buttons */
+.download-btn {
+  display: inline-block;
+  background-color: var(--pentaho-blue);
+  color: var(--pentaho-white) !important;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease;
+  margin: 4px 0;
+}
+
+.download-btn:hover {
+  background-color: var(--pentaho-dark-blue) !important;
+  color: var(--pentaho-white) !important;
+  text-decoration: none !important;
+}
+
+/* Badge styling */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badge-cdx {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+}
+
+.badge-legacy {
+  background-color: #FFF3E0;
+  color: #E65100;
+}
+
+/* Details/summary for archive */
+details {
+  margin: 1.5em 0;
+  border: 1px solid #e0e6ed;
+  border-radius: 6px;
+  padding: 0;
+}
+
+details summary {
+  padding: 12px 16px;
+  background-color: var(--pentaho-light-gray);
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--pentaho-navy);
+  border-radius: 6px;
+}
+
+details[open] summary {
+  border-bottom: 1px solid #e0e6ed;
+  border-radius: 6px 6px 0 0;
+}
+
+details .archive-content {
+  padding: 12px 16px;
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid #e0e6ed !important;
+  color: #777 !important;
+}
