@@ -9,6 +9,7 @@ Reports are published in [CycloneDX](https://cyclonedx.org/) format -- the indus
 ## Current Reports
 
 <!-- project:pdia -->
+
 ### Pentaho Data Integration and Analytics
 
 The full Pentaho platform suite.
@@ -16,9 +17,11 @@ The full Pentaho platform suite.
 | Version | Format | Download |
 |---|---|---|
 | *Coming soon* | CycloneDX | -- |
+
 <!-- /project:pdia -->
 
 <!-- project:pdi-openlineage-plugin-ee -->
+
 ### Pentaho Data Lineage Plugin
 
 OpenLineage integration plugin for Pentaho Data Integration.
@@ -26,14 +29,17 @@ OpenLineage integration plugin for Pentaho Data Integration.
 | Version | Format | Download |
 |---|---|---|
 | 0.7.0-292 | CycloneDX | [sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip](openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip) |
+
 <!-- /project:pdi-openlineage-plugin-ee -->
 
 <!-- project:pdc-docker-deployment -->
+
 ### Pentaho Data Catalog
 
 | Version | Format | Download |
 |---|---|---|
 | *Coming soon* | CycloneDX | -- |
+
 <!-- /project:pdc-docker-deployment -->
 
 ---
