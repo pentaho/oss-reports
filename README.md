@@ -28,7 +28,7 @@ OpenLineage integration plugin for Pentaho Data Integration.
 
 | Version | Format | Download |
 |---|---|---|
-| 0.7.0-292 | CycloneDX | [sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip](openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip) |
+| 0.7.0-292 | CycloneDX | [pdi-openlineage-plugin-ee-0.7.0-292](openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip) |
 
 <!-- /project:pdi-openlineage-plugin-ee -->
 
@@ -38,7 +38,7 @@ OpenLineage integration plugin for Pentaho Data Integration.
 
 | Version | Format | Download |
 |---|---|---|
-| *Coming soon* | CycloneDX | -- |
+| 11.0.0.0-c99927d | CycloneDX | [pdc-11.0.0.0-c99927d](pentaho-catalog/sbom-pdc-docker-deployment-release-release-v11.0.0-c99927d.zip) |
 
 <!-- /project:pdc-docker-deployment -->
 
