@@ -16,7 +16,8 @@ The full Pentaho platform suite.
 
 | Version | Format | Download |
 |---|---|---|
-| *Coming soon* | CycloneDX | -- |
+| 11.0.0.2-294 | CycloneDX | [pdia-11.0.0.2-294](pentaho-suite/sbom-pdia-11.0-11.0.0.2-294.zip) |
+| 10.2.0.9-418 | CycloneDX | [pdia-10.2.0.9-418](pentaho-suite/sbom-pdia-10.2-10.2.0.9-418.zip) |
 
 <!-- /project:pdia -->
 
@@ -28,7 +29,8 @@ OpenLineage integration plugin for Pentaho Data Integration.
 
 | Version | Format | Download |
 |---|---|---|
-| 0.7.0-292 | CycloneDX | [pdi-openlineage-plugin-ee-0.7.0-292](openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip) |
+| 0.7.1-353 | CycloneDX | [pdi-openlineage-plugin-0.7.1-353](openlineage-plugin/sbom-pdi-openlineage-plugin-0.7.1-353.zip) |
+| 0.7.0-292 | CycloneDX | [pdi-openlineage-plugin-0.7.0-292](openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip) |
 
 <!-- /project:pdi-openlineage-plugin-ee -->
 
