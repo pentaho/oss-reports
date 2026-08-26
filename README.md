@@ -18,6 +18,7 @@ The full Pentaho platform suite.
 |---|---|---|
 | 11.0.0.2-294 | CycloneDX | [pdia-11.0.0.2-294](pentaho-suite/sbom-pdia-11.0-11.0.0.2-294.zip) |
 | 10.2.0.9-418 | CycloneDX | [pdia-10.2.0.9-418](pentaho-suite/sbom-pdia-10.2-10.2.0.9-418.zip) |
+| 10.2.0.8-403 | CycloneDX | [pdia-10.2.0.8-403](pentaho-suite/sbom-pdia-10.2-10.2.0.8-403.zip) |
 
 <!-- /project:pdia -->
 
