@@ -17,6 +17,8 @@ The full Pentaho platform suite.
 | Version | Format | Download |
 |---|---|---|
 | 11.0.0.2-294 | CycloneDX | [pdia-11.0.0.2-294](pentaho-suite/sbom-pdia-11.0-11.0.0.2-294.zip) |
+| 11.0.0.1-259 | CycloneDX | [pdia-11.0.0.1-259](pentaho-suite/sbom-pdia-11.0-11.0.0.1-259.zip) |
+| 11.0.0.0-237 | CycloneDX | [pdia-11.0.0.0-237](pentaho-suite/sbom-pdia-11.0-11.0.0.0-237.zip) |
 | 10.2.0.9-418 | CycloneDX | [pdia-10.2.0.9-418](pentaho-suite/sbom-pdia-10.2-10.2.0.9-418.zip) |
 | 10.2.0.8-403 | CycloneDX | [pdia-10.2.0.8-403](pentaho-suite/sbom-pdia-10.2-10.2.0.8-403.zip) |
 
@@ -87,7 +89,6 @@ These reports were generated in older formats (PDF, TXT, ZIP) and are retained f
 
 | Version | Download |
 |---|---|
-| 11.0.0.0 | [Pentaho_Suite-11.0.0.0.zip](archive/pentaho-suite/Pentaho_Suite-11.0.0.0.zip) |
 | 10.2.0.3 | [PentahoSuite_OSS_Licenses_v10.2.0.3.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.2.0.3.pdf) |
 | 10.2.0.2 | [PentahoSuite_OSS_Licenses_v10.2.0.2.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.2.0.2.pdf) |
 | 10.2.0.0 | [PentahoSuite_OSS_Licenses_v10.2.0.0.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.2.0.0.pdf) |
