@@ -18,19 +18,22 @@
 # The project key is the build name minus the branch suffix.
 # Exception: pdc-docker-deployment (no branch suffix pattern).
 #
-# Naming convention for published files:
+# Naming convention for published files (CycloneDX archive + PDF report):
 #   sbom-{build-name}-{version}.zip
+#   sbom-{build-name}-{version}.pdf
 #
 # Example: build "pdi-openlineage-plugin-ee-main" version "0.7.0-292"
 #   -> openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip
+#   -> openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.pdf
 #
-# README automation:
-#   Each project has HTML comment markers in README.md:
+# Site automation:
+#   Each project has HTML comment markers inside its table body in index.html:
 #     <!-- project:{project-key} -->
-#     ... table rows ...
+#     ... <tr> rows, newest first ...
 #     <!-- /project:{project-key} -->
-#   To publish: insert a new table row before the closing marker.
-#   Row format: | {version} | CycloneDX | [{filename}]({folder}/{filename}) |
+#   To publish: insert a new <tr> directly after the opening marker, copying
+#   an existing row (version, build, generated date, component count, ZIP and
+#   PDF links with file sizes).
 
 projects:
 

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<!-- ******************************************************************************
+  Pentaho
+
+  Copyright (C) 2026 by Pentaho Canada Inc. : http://www.pentaho.com
+
+  Use of this software is governed by the Business Source License included
+  in the LICENSE.TXT file.
+
+  Change Date: 2030-06-15
+****************************************************************************** -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pentaho Open Source Reports | Software Bill of Materials</title>
+  <meta name="description" content="Software Bill of Materials (SBOM) for Pentaho products in CycloneDX JSON and PDF formats, listing every open source component, version and license.">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="./" aria-label="Pentaho Open Source Reports home">
+        <span class="wordmark">Pentaho<span class="dot">.</span></span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-sub">Open Source Reports</span>
+      </a>
+      <nav class="topnav" aria-label="External">
+        <a href="https://pentaho.com/">pentaho.com</a>
+        <a href="https://github.com/pentaho/oss-reports">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Trust &amp; Transparency</span>
+      <h1>Open source software reports for Pentaho products</h1>
+      <p>Software Bills of Materials listing every open source component shipped with Pentaho, its version, its license and its copyright. Each release is published as a machine-readable CycloneDX JSON file and a human-readable PDF report.</p>
+      <div class="stats">
+        <div class="stat"><strong>3</strong><span>Products</span></div>
+        <div class="stat"><strong>10</strong><span>Current releases</span></div>
+        <div class="stat"><strong>CycloneDX 1.6</strong><span>JSON + PDF formats</span></div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="product-nav" aria-label="Products">
+    <div class="container">
+      <ul>
+        <li><a href="#pdia">Data Integration &amp; Analytics</a></li>
+        <li><a href="#data-lineage">Data Lineage Plugin</a></li>
+        <li><a href="#data-catalog">Data Catalog</a></li>
+        <li><a href="#formats">Formats</a></li>
+        <li><a href="#archive">Archive</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="container">
+      <h2 class="section-title">Current reports</h2>
+      <p class="section-lead">Download the SBOM for your release. The CycloneDX archive is the authoritative, machine-readable record; the PDF report presents the same data for review.</p>
+
+      <section class="card" id="pdia" aria-labelledby="pdia-title">
+        <div class="card-head">
+          <div>
+            <h3 id="pdia-title">Pentaho Data Integration and Analytics</h3>
+            <p>The full Pentaho platform suite.</p>
+          </div>
+          <span class="tag">CycloneDX 1.6</span>
+        </div>
+        <div class="table-wrap">
+          <table class="reports">
+            <thead>
+              <tr><th scope="col">Version</th><th scope="col">Build</th><th scope="col">Generated</th><th scope="col" class="num">Components</th><th scope="col" class="center">CycloneDX JSON</th><th scope="col" class="center">PDF report</th></tr>
+            </thead>
+            <tbody>
+<!-- project:pdia -->
+            <tr>
+              <td><span class="version">11.0.0.3</span><span class="latest">Latest</span></td>
+              <td class="build">312</td>
+              <td class="date">2026-10-07</td>
+              <td class="num">2,281</td>
+              <td class="center"><a class="btn btn-json" href="pentaho-suite/sbom-pdia-11.0-11.0.0.3-312.zip" download aria-label="Download CycloneDX JSON for 11.0.0.3 build 312"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>ZIP <small>5.5 MB</small></a></td>
+              <td class="center"><a class="btn btn-pdf" href="pentaho-suite/sbom-pdia-11.0-11.0.0.3-312.pdf" aria-label="Open PDF report for 11.0.0.3 build 312"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>PDF <small>571 KB</small></a></td>
+            </tr>
+            <tr>
+              <td><span class="version">11.0.0.2</span></td>
+              <td class="build">294</td>
+              <td class="date">2026-09-17</td>
+              <td class="num">2,281</td>
+              <td class="center"><a class="btn btn-json" href="pentaho-suite/sbom-pdia-11.0-11.0.0.2-294.zip" download aria-label="Download CycloneDX JSON for 11.0.0.2 build 294"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>ZIP <small>6.5 MB</small></a></td>
+              <td class="center"><a class="btn btn-pdf" href="pentaho-suite/sbom-pdia-11.0-11.0.0.2-294.pdf" aria-label="Open PDF report for 11.0.0.2 build 294"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>PDF <small>574 KB</small></a></td>
+            </tr>
+            <tr>
+              <td><span class="version">11.0.0.1</span></td>
+              <td class="build">259</td>
+              <td class="date">2026-09-17</td>
+              <td class="num">2,299</td>
+              <td class="center"><a class="btn btn-json" href="pentaho-suite/sbom-pdia-11.0-11.0.0.1-259.zip" download aria-label="Download CycloneDX JSON for 11.0.0.1 build 259"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>ZIP <small>6.1 MB</small></a></td>
+              <td class="center"><a class="btn btn-pdf" href="pentaho-suite/sbom-pdia-11.0-11.0.0.1-259.pdf" aria-label="Open PDF report for 11.0.0.1 build 259"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>PDF <small>572 KB</small></a></td>
+            </tr>
+            <tr>
+              <td><span class="version">11.0.0.0</span></td>
+              <td class="build">237</td>
+              <td class="date">2026-09-16</td>
+              <td class="num">2,248</td>
+              <td class="center"><a class="btn btn-json" href="pentaho-suite/sbom-pdia-11.0-11.0.0.0-237.zip" download aria-label="Download CycloneDX JSON for 11.0.0.0 build 237"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>ZIP <small>7.8 MB</small></a></td>
+              <td class="center"><a class="btn btn-pdf" href="pentaho-suite/sbom-pdia-11.0-11.0.0.0-237.pdf" aria-label="Open PDF report for 11.0.0.0 build 237"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>PDF <small>554 KB</small></a></td>
+            </tr>
+            <tr>
+              <td><span class="version">10.2.0.10</span><span class="latest">Latest</span></td>
+              <td class="build">438</td>
+              <td class="date">2026-10-07</td>
+              <td class="num">2,064</td>
+              <td class="center"><a class="btn btn-json" href="pentaho-suite/sbom-pdia-10.2-10.2.0.10-438.zip" download aria-label="Download CycloneDX JSON for 10.2.0.10 build 438"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>ZIP <small>5.8 MB</small></a></td>
+              <td class="center"><a class="btn btn-pdf" href="pentaho-suite/sbom-pdia-10.2-10.2.0.10-438.pdf" aria-label="Open PDF report for 10.2.0.10 build 438"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>PDF <small>528 KB</small></a></td>
+            </tr>
+            <tr>
+              <td><span class="version">10.2.0.9</span></td>
+              <td class="build">418</td>
+              <td class="date">2026-08-26</td>
+              <td class="num">2,068</td>
+              <td class="center"><a class="btn btn-json" href="pentaho-suite/sbom-pdia-10.2-10.2.0.9-418.zip" download aria-label="Download CycloneDX JSON for 10.2.0.9 build 418"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>ZIP <small>7.1 MB</small></a></td>
+              <td class="center"><a class="btn btn-pdf" href="pentaho-suite/sbom-pdia-10.2-10.2.0.9-418.pdf" aria-label="Open PDF report for 10.2.0.9 build 418"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>PDF <small>516 KB</small></a></td>
+            </tr>
+            <tr>
+              <td><span class="version">10.2.0.8</span></td>
+              <td class="build">403</td>
+              <td class="date">2026-08-26</td>
+              <td class="num">2,077</td>
+              <td class="center"><a class="btn btn-json" href="pentaho-suite/sbom-pdia-10.2-10.2.0.8-403.zip" download aria-label="Download CycloneDX JSON for 10.2.0.8 build 403"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>ZIP <small>6.9 MB</small></a></td>
+              <td class="center"><a class="btn btn-pdf" href="pentaho-suite/sbom-pdia-10.2-10.2.0.8-403.pdf" aria-label="Open PDF report for 10.2.0.8 build 403"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>PDF <small>511 KB</small></a></td>
+            </tr>
+<!-- /project:pdia -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card" id="data-lineage" aria-labelledby="ol-title">
+        <div class="card-head">
+          <div>
+            <h3 id="ol-title">Pentaho Data Lineage Plugin</h3>
+            <p>OpenLineage integration plugin for Pentaho Data Integration.</p>
+          </div>
+          <span class="tag">CycloneDX 1.6</span>
+        </div>
+        <div class="table-wrap">
+          <table class="reports">
+            <thead>
+              <tr><th scope="col">Version</th><th scope="col">Build</th><th scope="col">Generated</th><th scope="col" class="num">Components</th><th scope="col" class="center">CycloneDX JSON</th><th scope="col" class="center">PDF report</th></tr>
+            </thead>
+            <tbody>
+<!-- project:pdi-openlineage-plugin-ee -->
+            <tr>
+              <td><span class="version">0.7.1</span><span class="latest">Latest</span></td>
+              <td class="build">353</td>
+              <td class="date">2026-07-14</td>
+              <td class="num">84</td>
+              <td class="center"><a class="btn btn-json" href="openlineage-plugin/sbom-pdi-openlineage-plugin-0.7.1-353.zip" download aria-label="Download CycloneDX JSON for 0.7.1 build 353"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>ZIP <small>99 KB</small></a></td>
+              <td class="center"><a class="btn btn-pdf" href="openlineage-plugin/sbom-pdi-openlineage-plugin-0.7.1-353.pdf" aria-label="Open PDF report for 0.7.1 build 353"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>PDF <small>53 KB</small></a></td>
+            </tr>
+            <tr>
+              <td><span class="version">0.7.0</span></td>
+              <td class="build">292</td>
+              <td class="date">2026-04-30</td>
+              <td class="num">293</td>
+              <td class="center"><a class="btn btn-json" href="openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip" download aria-label="Download CycloneDX JSON for 0.7.0 build 292"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>ZIP <small>1.5 MB</small></a></td>
+              <td class="center"><a class="btn btn-pdf" href="openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.pdf" aria-label="Open PDF report for 0.7.0 build 292"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>PDF <small>190 KB</small></a></td>
+            </tr>
+<!-- /project:pdi-openlineage-plugin-ee -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card" id="data-catalog" aria-labelledby="pdc-title">
+        <div class="card-head">
+          <div>
+            <h3 id="pdc-title">Pentaho Data Catalog</h3>
+            <p>Data discovery, governance and cataloging platform.</p>
+          </div>
+          <span class="tag">CycloneDX 1.6</span>
+        </div>
+        <div class="table-wrap">
+          <table class="reports">
+            <thead>
+              <tr><th scope="col">Version</th><th scope="col">Build</th><th scope="col">Generated</th><th scope="col" class="num">Components</th><th scope="col" class="center">CycloneDX JSON</th><th scope="col" class="center">PDF report</th></tr>
+            </thead>
+            <tbody>
+<!-- project:pdc-docker-deployment -->
+            <tr>
+              <td><span class="version">11.0.0.0</span><span class="latest">Latest</span></td>
+              <td class="build">c99927d</td>
+              <td class="date">2026-05-28</td>
+              <td class="num">8,850</td>
+              <td class="center"><a class="btn btn-json" href="pentaho-catalog/sbom-pdc-docker-deployment-release-release-v11.0.0-c99927d.zip" download aria-label="Download CycloneDX JSON for 11.0.0.0 build c99927d"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg>ZIP <small>19.5 MB</small></a></td>
+              <td class="center"><a class="btn btn-pdf" href="pentaho-catalog/sbom-pdc-docker-deployment-release-release-v11.0.0-c99927d.pdf" aria-label="Open PDF report for 11.0.0.0 build c99927d"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>PDF <small>1.6 MB</small></a></td>
+            </tr>
+<!-- /project:pdc-docker-deployment -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <h2 class="section-title" id="formats">Report formats</h2>
+      <p class="section-lead">Both formats are generated from the same validated SBOM by the Pentaho security pipeline.</p>
+      <div class="grid-2">
+        <section class="card info">
+          <span class="kicker">Machine-readable</span>
+          <h3>CycloneDX JSON</h3>
+          <p>A <code>.zip</code> archive containing a <a href="https://cyclonedx.org/specification/overview/">CycloneDX 1.6</a> JSON document with:</p>
+          <ul>
+            <li>Complete component inventory with <a href="https://github.com/package-url/purl-spec">Package URLs</a></li>
+            <li>SPDX license identifiers with full license texts</li>
+            <li>License evidence and the concluded license per component</li>
+            <li>Snippet-scanned JavaScript libraries with copyright headers</li>
+            <li>SHA-256 hashes for integrity verification</li>
+          </ul>
+          <p>Open it with the <a href="https://github.com/CycloneDX/cyclonedx-cli">CycloneDX CLI</a>, <a href="https://dependencytrack.org/">Dependency-Track</a> or any JSON viewer.</p>
+        </section>
+        <section class="card info">
+          <span class="kicker">Human-readable</span>
+          <h3>PDF report</h3>
+          <p>A printable rendering of the same SBOM, organised in two sections:</p>
+          <ul>
+            <li><strong>Components</strong> &ndash; every component with its package URL, version and license</li>
+            <li><strong>Licenses</strong> &ndash; one section per license with its full text and the components it covers, including their copyright notices</li>
+          </ul>
+          <p>Suited to legal review, procurement and attribution notices.</p>
+        </section>
+      </div>
+
+      <h2 class="section-title">File naming convention</h2>
+      <p class="section-lead">Files follow a predictable pattern so they can be published automatically from CI.</p>
+      <div class="card naming">
+        <pre>sbom-{build-name}-{version}.zip
+sbom-{build-name}-{version}.pdf</pre>
+        <dl>
+          <dt>build-name</dt><dd>The CI build identifier, for example <code>pdi-openlineage-plugin-ee-main</code></dd>
+          <dt>version</dt><dd>The release version and build number, for example <code>0.7.0-292</code></dd>
+        </dl>
+      </div>
+
+      <h2 class="section-title" id="archive">Archive</h2>
+      <p class="section-lead">Reports published before the CycloneDX format was adopted, retained for reference.</p>
+      <details class="archive">
+        <summary>Legacy reports (PDF, TXT and ZIP)</summary>
+        <div class="archive-body">
+          <h4>Pentaho Data Integration and Analytics</h4>
+          <div class="table-wrap">
+            <table class="reports">
+              <thead><tr><th scope="col">Version</th><th scope="col">Format</th><th scope="col">Download</th></tr></thead>
+              <tbody>
+                <tr><td class="version">11.0.0.0</td><td>ZIP (TXT attribution reports)</td><td><a href="archive/pentaho-suite/Pentaho_Suite-11.0.0.0.zip" download>Pentaho_Suite-11.0.0.0.zip</a></td></tr>
+                <tr><td class="version">10.2.0.3</td><td>PDF</td><td><a href="archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.2.0.3.pdf">PentahoSuite_OSS_Licenses_v10.2.0.3.pdf</a></td></tr>
+                <tr><td class="version">10.2.0.2</td><td>PDF</td><td><a href="archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.2.0.2.pdf">PentahoSuite_OSS_Licenses_v10.2.0.2.pdf</a></td></tr>
+                <tr><td class="version">10.2.0.0</td><td>PDF</td><td><a href="archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.2.0.0.pdf">PentahoSuite_OSS_Licenses_v10.2.0.0.pdf</a></td></tr>
+                <tr><td class="version">10.1.0.0</td><td>PDF</td><td><a href="archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.1.0.0.pdf">PentahoSuite_OSS_Licenses_v10.1.0.0.pdf</a></td></tr>
+                <tr><td class="version">10.0.0.0</td><td>PDF</td><td><a href="archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.0.0.0.pdf">PentahoSuite_OSS_Licenses_v10.0.0.0.pdf</a></td></tr>
+                <tr><td class="version">9.4.0.0</td><td>PDF</td><td><a href="archive/pentaho-suite/PentahoSuite_OSS_Licenses_v9.4.0.0.pdf">PentahoSuite_OSS_Licenses_v9.4.0.0.pdf</a></td></tr>
+                <tr><td class="version">9.3.0.0</td><td>PDF</td><td><a href="archive/pentaho-suite/PentahoSuite_OSS_Licenses_v9.3.0.0.pdf">PentahoSuite_OSS_Licenses_v9.3.0.0.pdf</a></td></tr>
+                <tr><td class="version">9.2.0.3</td><td>PDF</td><td><a href="archive/pentaho-suite/PentahoSuite_OSS_Licenses_v9.2.0.3.pdf">PentahoSuite_OSS_Licenses_v9.2.0.3.pdf</a></td></tr>
+                <tr><td class="version">9.2.0.0</td><td>PDF</td><td><a href="archive/pentaho-suite/PentahoSuite_OSS_Licenses_v9.2.0.0.pdf">PentahoSuite_OSS_Licenses_v9.2.0.0.pdf</a></td></tr>
+                <tr><td class="version">9.1.0.0</td><td>PDF</td><td><a href="archive/pentaho-suite/PentahoSuite_OSS_Licenses_v9.1.0.0.pdf">PentahoSuite_OSS_Licenses_v9.1.0.0.pdf</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Pentaho Data Lineage Plugin</h4>
+          <div class="table-wrap">
+            <table class="reports">
+              <thead><tr><th scope="col">Version</th><th scope="col">Format</th><th scope="col">Download</th></tr></thead>
+              <tbody>
+                <tr><td class="version">10.2.1.0</td><td>PDF</td><td><a href="archive/openlineage-plugin/PDIOpenLineagePlugin_OSS_Licenses_v10.2.1.0.pdf">PDIOpenLineagePlugin_OSS_Licenses_v10.2.1.0.pdf</a></td></tr>
+                <tr><td class="version">0.6.0</td><td>TXT</td><td><a href="archive/openlineage-plugin/Open_Lineage_BoM_license_attribution_report-0.6.0-213.txt">Open_Lineage_BoM_license_attribution_report-0.6.0-213.txt</a></td></tr>
+                <tr><td class="version">0.5.0</td><td>TXT</td><td><a href="archive/openlineage-plugin/Open_Lineage_BoM_license_attribution_report-0.5.0-184.txt">Open_Lineage_BoM_license_attribution_report-0.5.0-184.txt</a></td></tr>
+                <tr><td class="version">0.4.0</td><td>TXT</td><td><a href="archive/openlineage-plugin/Open_Lineage-0.4.0-116.txt">Open_Lineage-0.4.0-116.txt</a></td></tr>
+                <tr><td class="version">0.3.0</td><td>TXT</td><td><a href="archive/openlineage-plugin/Open_Lineage_BoM_license_attribution_report-0.3.0-1629.txt">Open_Lineage_BoM_license_attribution_report-0.3.0-1629.txt</a></td></tr>
+                <tr><td class="version">0.2.0</td><td>PDF</td><td><a href="archive/openlineage-plugin/PDI-OpenLineage-Plugin_OSS_Licenses_V0.2.0.pdf">PDI-OpenLineage-Plugin_OSS_Licenses_V0.2.0.pdf</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Pentaho Data Catalog</h4>
+          <div class="table-wrap">
+            <table class="reports">
+              <thead><tr><th scope="col">Version</th><th scope="col">Format</th><th scope="col">Download</th></tr></thead>
+              <tbody>
+                <tr><td class="version">10.2</td><td>PDF</td><td><a href="archive/pentaho-catalog/Pentaho_Data_Catalog_OSS_Licenses_V10.2.pdf">Pentaho_Data_Catalog_OSS_Licenses_V10.2.pdf</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>&copy; 2026 Pentaho Canada Inc. All rights reserved.</span>
+      <span><a href="https://github.com/pentaho/oss-reports">Source on GitHub</a> &middot; Site content licensed under <a href="LICENSE">Apache 2.0</a></span>
+    </div>
+  </footer>
+</body>
+</html>
