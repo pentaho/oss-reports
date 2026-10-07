@@ -2,124 +2,32 @@
 
 Software Bill of Materials (SBOM) for Pentaho products, listing all open-source components, their versions, and licenses.
 
-Reports are published in [CycloneDX](https://cyclonedx.org/) format -- the industry standard for machine-readable SBOMs. Each report is a `.zip` archive containing a CycloneDX JSON file with full license texts and evidence.
+**Browse and download the reports at <https://pentaho.github.io/oss-reports/>.**
 
----
+Each release is published in two formats, side by side:
 
-## Current Reports
-
-<!-- project:pdia -->
-
-### Pentaho Data Integration and Analytics
-
-The full Pentaho platform suite.
-
-| Version | Format | Download |
+| Format | File | Purpose |
 |---|---|---|
-| 11.0.0.2-294 | CycloneDX | [pdia-11.0.0.2-294](pentaho-suite/sbom-pdia-11.0-11.0.0.2-294.zip) |
-| 11.0.0.1-259 | CycloneDX | [pdia-11.0.0.1-259](pentaho-suite/sbom-pdia-11.0-11.0.0.1-259.zip) |
-| 11.0.0.0-237 | CycloneDX | [pdia-11.0.0.0-237](pentaho-suite/sbom-pdia-11.0-11.0.0.0-237.zip) |
-| 10.2.0.9-418 | CycloneDX | [pdia-10.2.0.9-418](pentaho-suite/sbom-pdia-10.2-10.2.0.9-418.zip) |
-| 10.2.0.8-403 | CycloneDX | [pdia-10.2.0.8-403](pentaho-suite/sbom-pdia-10.2-10.2.0.8-403.zip) |
+| [CycloneDX 1.6](https://cyclonedx.org/specification/overview/) JSON | `sbom-{build-name}-{version}.zip` | Machine-readable, authoritative SBOM with PURLs, SPDX license ids, full license texts, evidence and SHA-256 hashes |
+| PDF report | `sbom-{build-name}-{version}.pdf` | Human-readable rendering of the same SBOM: a components table, then one section per license with its full text and the covered components with their copyright |
 
-<!-- /project:pdia -->
+## Repository layout
 
-<!-- project:pdi-openlineage-plugin-ee -->
-
-### Pentaho Data Lineage Plugin
-
-OpenLineage integration plugin for Pentaho Data Integration.
-
-| Version | Format | Download |
-|---|---|---|
-| 0.7.1-353 | CycloneDX | [pdi-openlineage-plugin-0.7.1-353](openlineage-plugin/sbom-pdi-openlineage-plugin-0.7.1-353.zip) |
-| 0.7.0-292 | CycloneDX | [pdi-openlineage-plugin-0.7.0-292](openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip) |
-
-<!-- /project:pdi-openlineage-plugin-ee -->
-
-<!-- project:pdc-docker-deployment -->
-
-### Pentaho Data Catalog
-
-| Version | Format | Download |
-|---|---|---|
-| 11.0.0.0-c99927d | CycloneDX | [pdc-11.0.0.0-c99927d](pentaho-catalog/sbom-pdc-docker-deployment-release-release-v11.0.0-c99927d.zip) |
-
-<!-- /project:pdc-docker-deployment -->
-
----
-
-## File Naming Convention
-
-All SBOM files follow this pattern:
-
-```
-sbom-{build-name}-{version}.zip
-```
-
-- **build-name** - the CI build identifier (e.g. `pdi-openlineage-plugin-ee-main`)
-- **version** - the release version and build number (e.g. `0.7.0-292`)
-
-This convention enables automated publishing from CI pipelines.
-
----
-
-## About the Format
-
-Reports use [CycloneDX 1.6](https://cyclonedx.org/specification/overview/) JSON format and include:
-
-- Complete component inventory with PURLs ([Package URLs](https://github.com/package-url/purl-spec))
-- SPDX license identifiers with full license texts
-- License evidence and concluded (most-permissive) license per component
-- Snippet-scanned JavaScript libraries with copyright headers
-- SHA-256 hashes for integrity verification
-
-Tools to view CycloneDX SBOMs: [CycloneDX CLI](https://github.com/CycloneDX/cyclonedx-cli), [Dependency-Track](https://dependencytrack.org/), or any JSON viewer.
-
----
-
-<details>
-<summary>Archive - Legacy Reports (pre-CycloneDX)</summary>
-
-<div class="archive-content" markdown="1">
-
-These reports were generated in older formats (PDF, TXT, ZIP) and are retained for reference.
-
-### Pentaho Data Integration and Analytics
-
-| Version | Download |
+| Path | Contents |
 |---|---|
-| 10.2.0.3 | [PentahoSuite_OSS_Licenses_v10.2.0.3.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.2.0.3.pdf) |
-| 10.2.0.2 | [PentahoSuite_OSS_Licenses_v10.2.0.2.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.2.0.2.pdf) |
-| 10.2.0.0 | [PentahoSuite_OSS_Licenses_v10.2.0.0.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.2.0.0.pdf) |
-| 10.1.0.0 | [PentahoSuite_OSS_Licenses_v10.1.0.0.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.1.0.0.pdf) |
-| 10.0.0.0 | [PentahoSuite_OSS_Licenses_v10.0.0.0.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v10.0.0.0.pdf) |
-| 9.4.0.0 | [PentahoSuite_OSS_Licenses_v9.4.0.0.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v9.4.0.0.pdf) |
-| 9.3.0.0 | [PentahoSuite_OSS_Licenses_v9.3.0.0.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v9.3.0.0.pdf) |
-| 9.2.0.3 | [PentahoSuite_OSS_Licenses_v9.2.0.3.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v9.2.0.3.pdf) |
-| 9.2.0.0 | [PentahoSuite_OSS_Licenses_v9.2.0.0.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v9.2.0.0.pdf) |
-| 9.1.0.0 | [PentahoSuite_OSS_Licenses_v9.1.0.0.pdf](archive/pentaho-suite/PentahoSuite_OSS_Licenses_v9.1.0.0.pdf) |
+| `index.html`, `assets/css/site.css` | The GitHub Pages site (static HTML, no Jekyll build -- see `.nojekyll`) |
+| `pentaho-suite/` | Pentaho Data Integration and Analytics |
+| `openlineage-plugin/` | Pentaho Data Lineage Plugin |
+| `pentaho-catalog/` | Pentaho Data Catalog |
+| `archive/` | Legacy reports (PDF, TXT, ZIP) published before the CycloneDX format |
+| `manifest.yml` | Maps pdia-security build names to product folders for automated publishing |
 
-### Pentaho Data Lineage Plugin
+## Publishing a release
 
-| Version | Download |
-|---|---|
-| 10.2.1.0 | [PDIOpenLineagePlugin_OSS_Licenses_v10.2.1.0.pdf](archive/openlineage-plugin/PDIOpenLineagePlugin_OSS_Licenses_v10.2.1.0.pdf) |
-| 0.6.0 | [Open_Lineage_BoM_license_attribution_report-0.6.0-213.txt](archive/openlineage-plugin/Open_Lineage_BoM_license_attribution_report-0.6.0-213.txt) |
-| 0.5.0 | [Open_Lineage_BoM_license_attribution_report-0.5.0-184.txt](archive/openlineage-plugin/Open_Lineage_BoM_license_attribution_report-0.5.0-184.txt) |
-| 0.4.0 | [Open_Lineage-0.4.0-116.txt](archive/openlineage-plugin/Open_Lineage-0.4.0-116.txt) |
-| 0.3.0 | [Open_Lineage_BoM_license_attribution_report-0.3.0-1629.txt](archive/openlineage-plugin/Open_Lineage_BoM_license_attribution_report-0.3.0-1629.txt) |
-| 0.2.0 | [PDI-OpenLineage-Plugin_OSS_Licenses_V0.2.0.pdf](archive/openlineage-plugin/PDI-OpenLineage-Plugin_OSS_Licenses_V0.2.0.pdf) |
+1. Download the `sbom-<build>-<n>` and `sbom-pdf-<build>-<n>` artifacts from the `SBOM Consolidation` run in [pentaho/pdia-security](https://github.com/pentaho/pdia-security), or render the PDF from an existing SBOM with `.github/scripts/cyclonedx-to-pdf/cyclonedx_to_pdf.py` from that repo.
+2. Zip the `.cdx.json` as `sbom-{build-name}-{version}.zip` and copy it with the `.pdf` into the product folder from `manifest.yml`.
+3. In `index.html`, add a table row directly after the product's `<!-- project:{key} -->` marker (newest first), copying an existing row and updating the version, build, generation date, component count, links and file sizes. Move the `Latest` badge if the release supersedes the previous one on the same release line, and update the release count in the hero.
 
-### Pentaho Data Catalog
+Preview locally with `python3 -m http.server` from the repository root.
 
-| Version | Download |
-|---|---|
-| 10.2 | [Pentaho_Data_Catalog_OSS_Licenses_V10.2.pdf](archive/pentaho-catalog/Pentaho_Data_Catalog_OSS_Licenses_V10.2.pdf) |
-
-</div>
-</details>
-
----
-
-<sub>Copyright 2025 Pentaho. All rights reserved. Licensed under [Apache 2.0](LICENSE).</sub>
+<sub>Copyright 2026 Pentaho. All rights reserved. Licensed under [Apache 2.0](LICENSE).</sub>
