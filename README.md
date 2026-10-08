@@ -58,4 +58,4 @@ python3 .github/scripts/publish/site_render.py --check
 
 Preview locally with `python3 -m http.server` from the repository root.
 
-<sub>Copyright 2026 Pentaho. All rights reserved. Licensed under [Apache 2.0](LICENSE).</sub>
+<sub>Copyright 2026 Pentaho. All rights reserved. Licensed under the [Business Source License 1.1](LICENSE).</sub>
