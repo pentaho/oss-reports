@@ -258,7 +258,9 @@ class TestPrepareWithManifest(_Prepare):
                           rel["components"]),
                          ("pdia", "11.0.0.4", "330", "2026-10-20", 3))
         self.assertEqual(rel["zip"], {"path": "pentaho-suite/sbom-pdia-11.0-11.0.0.4-330.zip",
-                                      "size": zip_path.stat().st_size})
+                                      "size": zip_path.stat().st_size,
+                                      "sha256": hashlib.sha256(zip_path.read_bytes()).hexdigest()})
+        self.assertEqual(rel["pdf"]["sha256"], hashlib.sha256(_PDF).hexdigest())
         self.assertEqual(rel["source"]["run_url"],
                          "https://github.com/pentaho/pdia-security/actions/runs/42")
         self.assertEqual(rel["source"]["sbom_sha256"], hashlib.sha256(self.sbom).hexdigest())
@@ -418,13 +420,14 @@ class TestPrBody(unittest.TestCase):
     def test_contains_provenance_and_hashes(self):
         rel = {"project": "pdia", "version": "11.0.0.4", "build": "330", "date": "2026-10-20",
                "components": 2290,
-               "zip": {"path": "pentaho-suite/a.zip", "size": 6000000},
-               "pdf": {"path": "pentaho-suite/a.pdf", "size": 590000},
+               "zip": {"path": "pentaho-suite/a.zip", "size": 6000000, "sha256": "cc"},
+               "pdf": {"path": "pentaho-suite/a.pdf", "size": 590000, "sha256": "bb"},
                "source": {"build_name": "pdia-11.0", "build_number": "11.0.0.4-330",
                           "run_url": "https://github.com/pentaho/pdia-security/actions/runs/42",
-                          "sbom_sha256": "aa", "pdf_sha256": "bb"}}
+                          "sbom_sha256": "aa"}}
         body = publish.pr_body(rel, "Pentaho Data Integration and Analytics", verified=True)
-        for needle in ("11.0.0.4", "330", "2,290", "actions/runs/42", "aa", "bb", "pdia-11.0"):
+        for needle in ("11.0.0.4", "330", "2,290", "actions/runs/42", "aa", "bb", "cc",
+                       "pdia-11.0"):
             self.assertIn(needle, body)
 
 

@@ -1,6 +1,7 @@
 """Tests for site_render.py (releases.json -> index.html)."""
 
 import copy
+import hashlib
 import json
 import os
 import sys
@@ -23,8 +24,8 @@ def _rel(project="pdia", version="11.0.0.3", build="312", **kw):
         "build": build,
         "date": "2026-10-07",
         "components": 2281,
-        "zip": {"path": f"{stem}.zip", "size": 5811096},
-        "pdf": {"path": f"{stem}.pdf", "size": 585083},
+        "zip": {"path": f"{stem}.zip", "size": 5811096, "sha256": "a" * 64},
+        "pdf": {"path": f"{stem}.pdf", "size": 585083, "sha256": "b" * 64},
     }
     rel.update(kw)
     return rel
@@ -101,6 +102,24 @@ class TestRenderIndex(unittest.TestCase):
         self.assertIn("&lt;b&gt;", out)
         self.assertNotIn("<b>", out)
 
+    def test_downloads_link_to_raw_main(self):
+        out = site.render_index(_HTML, [_rel()])
+        base = "https://raw.githubusercontent.com/pentaho/oss-reports/main/"
+        self.assertIn(f'href="{base}pentaho-suite/sbom-pdia-11.0.0.3-312.zip"', out)
+        self.assertIn(f'href="{base}pentaho-suite/sbom-pdia-11.0.0.3-312.pdf"', out)
+
+    def test_checksum_popover(self):
+        out = site.render_index(_HTML, [_rel(), _rel(version="10.2.0.9", build="418")])
+        self.assertIn('popovertarget="sha-pdia-11-0-0-3-312"', out)
+        self.assertIn('id="sha-pdia-11-0-0-3-312" popover', out)
+        self.assertIn('id="sha-pdia-10-2-0-9-418" popover', out)
+        self.assertEqual(out.count('data-copy="' + "a" * 64 + '"'), 2)
+        self.assertEqual(out.count('data-copy="' + "b" * 64 + '"'), 2)
+
+    def test_checksum_popover_ids_are_safe(self):
+        out = site.render_index(_HTML, [_rel(build='x" onclick="y')])
+        self.assertIn('id="sha-pdia-11-0-0-3-x-onclick-y" popover', out)
+
     def test_unknown_project_marker_fails(self):
         with self.assertRaisesRegex(ValueError, "project:nope"):
             site.render_index(_HTML, [_rel(project="nope")])
@@ -129,6 +148,16 @@ class TestValidateReleases(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "date"):
             site.validate_releases([rel])
 
+    def test_bad_or_missing_sha256_rejected(self):
+        for bad in (None, "abc", "Z" * 64):
+            rel = _rel()
+            if bad is None:
+                del rel["pdf"]["sha256"]
+            else:
+                rel["pdf"]["sha256"] = bad
+            with self.assertRaisesRegex(ValueError, "sha256"):
+                site.validate_releases([rel])
+
 
 class TestRoundTrip(unittest.TestCase):
     def test_load_save_is_stable(self):
@@ -150,12 +179,14 @@ class TestRepositoryIsInSync(unittest.TestCase):
         releases = site.load_releases(REPO_ROOT / "releases.json")
         self.assertEqual(site.render_index(html, releases), html)
 
-    def test_every_published_file_exists_with_recorded_size(self):
+    def test_every_published_file_exists_with_recorded_size_and_sha256(self):
         for rel in site.load_releases(REPO_ROOT / "releases.json"):
             for kind in ("zip", "pdf"):
                 path = REPO_ROOT / rel[kind]["path"]
                 self.assertTrue(path.is_file(), path)
                 self.assertEqual(path.stat().st_size, rel[kind]["size"], path)
+                self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),
+                                 rel[kind]["sha256"], path)
 
     def test_input_not_mutated(self):
         releases = site.load_releases(REPO_ROOT / "releases.json")

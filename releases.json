@@ -8,11 +8,13 @@
       "components": 8850,
       "zip": {
         "path": "pentaho-catalog/sbom-pdc-docker-deployment-release-release-v11.0.0-c99927d.zip",
-        "size": 20403088
+        "size": 20403088,
+        "sha256": "61e9c552ee492af2fe02093fa09c940d44f35fc97e8e7e0f222c626f81a4c0b6"
       },
       "pdf": {
         "path": "pentaho-catalog/sbom-pdc-docker-deployment-release-release-v11.0.0-c99927d.pdf",
-        "size": 1727368
+        "size": 1727368,
+        "sha256": "79614a7aab2c6d5e136baf6fa184ec00f9d7c81733b14834a8045814c602f20d"
       }
     },
     {
@@ -23,11 +25,13 @@
       "components": 84,
       "zip": {
         "path": "openlineage-plugin/sbom-pdi-openlineage-plugin-0.7.1-353.zip",
-        "size": 101444
+        "size": 101444,
+        "sha256": "abbee06735594407938473df3d9ae4b7e4e89fcfb60051592e4c318eb808ca33"
       },
       "pdf": {
         "path": "openlineage-plugin/sbom-pdi-openlineage-plugin-0.7.1-353.pdf",
-        "size": 53916
+        "size": 53916,
+        "sha256": "7bd9c1acb89dc19daa197d80c21b9e79e301e7f38d5fceae1f0da95331a50bfa"
       }
     },
     {
@@ -38,11 +42,13 @@
       "components": 293,
       "zip": {
         "path": "openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip",
-        "size": 1605619
+        "size": 1605619,
+        "sha256": "3ade98c04dd497852e2f2be1111e49be65a2c4dea28e82413f999931f383f516"
       },
       "pdf": {
         "path": "openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.pdf",
-        "size": 194090
+        "size": 194090,
+        "sha256": "78e5dd716a8942d1bc9a889b965866100319fd93c94bee831d4097cef7de3b9b"
       }
     },
     {
@@ -53,11 +59,13 @@
       "components": 2281,
       "zip": {
         "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.3-312.zip",
-        "size": 5811096
+        "size": 5811096,
+        "sha256": "ca03c48d4b1ab134432a9a8b27d9374177993a0fc763b504f6096e6bf144699b"
       },
       "pdf": {
         "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.3-312.pdf",
-        "size": 585083
+        "size": 585083,
+        "sha256": "1d55320cc4cc824c89d465f02ea0f193b411c2888a61c45ab36b3e2f46033841"
       }
     },
     {
@@ -68,11 +76,13 @@
       "components": 2281,
       "zip": {
         "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.2-294.zip",
-        "size": 6817441
+        "size": 6817441,
+        "sha256": "40b2dccf2535bc63b6ec053410038cedb7b95130621541b03e67878dace839ed"
       },
       "pdf": {
         "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.2-294.pdf",
-        "size": 587802
+        "size": 587802,
+        "sha256": "9b52599bfc51be8b16dba540446893ea57222031be3f9f4c7016b7844b6b8de3"
       }
     },
     {
@@ -83,11 +93,13 @@
       "components": 2299,
       "zip": {
         "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.1-259.zip",
-        "size": 6357170
+        "size": 6357170,
+        "sha256": "6ea49fa5bb300ae7dce484f4fc3337927fe211df4c5fee392b48cdcc848bc609"
       },
       "pdf": {
         "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.1-259.pdf",
-        "size": 586221
+        "size": 586221,
+        "sha256": "37f353c0be72b380cf603576476041241535121a8ef24aa508d008851d7c89f9"
       }
     },
     {
@@ -98,11 +110,13 @@
       "components": 2248,
       "zip": {
         "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.0-237.zip",
-        "size": 8171562
+        "size": 8171562,
+        "sha256": "fbb7f8e0dbfb28e5cd49300668f9ee0f0b503cb9267b060e66ea765aaf7a2864"
       },
       "pdf": {
         "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.0-237.pdf",
-        "size": 567092
+        "size": 567092,
+        "sha256": "1c2003b0afd40f12e00bfa012f428773592e6ecf5192b6e8d9a723ca0fd54aff"
       }
     },
     {
@@ -113,11 +127,13 @@
       "components": 2064,
       "zip": {
         "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.10-438.zip",
-        "size": 6076858
+        "size": 6076858,
+        "sha256": "889fbd4d5a0279d0be9a6b82db482ccd92164e2f8472d9398b2a678e371f772f"
       },
       "pdf": {
         "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.10-438.pdf",
-        "size": 540618
+        "size": 540618,
+        "sha256": "c77e79d10ab34a36c484116ab9f10a8c37376f8fd441419b48430c392de88439"
       }
     },
     {
@@ -128,11 +144,13 @@
       "components": 2068,
       "zip": {
         "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.9-418.zip",
-        "size": 7412064
+        "size": 7412064,
+        "sha256": "baa98e1a60238ded7207d6b71bb69b91c2aeb8e0292b6f5a0b03e28a176b6929"
       },
       "pdf": {
         "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.9-418.pdf",
-        "size": 528272
+        "size": 528272,
+        "sha256": "e3bcaed79009e0f2dff92cd326c2e515b055e606d476d06dd7abca956c5986e0"
       }
     },
     {
@@ -143,11 +161,13 @@
       "components": 2077,
       "zip": {
         "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.8-403.zip",
-        "size": 7221829
+        "size": 7221829,
+        "sha256": "dacd4aaa323eb527218323522e2255dc647906f08d6bd25742cf09eb7062000f"
       },
       "pdf": {
         "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.8-403.pdf",
-        "size": 523358
+        "size": 523358,
+        "sha256": "3e7213eb5e65fe85eb422d90de8c4c96aebfd221e87f7abf7d6093ad31c07b43"
       }
     }
   ]
