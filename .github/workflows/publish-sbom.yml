@@ -1,0 +1,100 @@
+name: Publish SBOM
+run-name: Publish SBOM from pdia-security run ${{ inputs.run }}${{ inputs.dry_run && ' (dry run)' || '' }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      run:
+        description: 'pentaho/pdia-security "SBOM Consolidation" or "Xray Build" run ID or URL'
+        required: true
+        type: string
+      dry_run:
+        description: 'Only report what would be published (no commit, no PR)'
+        type: boolean
+        default: false
+      replace:
+        description: 'Overwrite a release that is already published'
+        type: boolean
+        default: false
+      project:
+        description: 'Override the manifest.yml project (default: routed from the build name)'
+        type: string
+        default: ''
+      version:
+        description: 'Override the displayed version'
+        type: string
+        default: ''
+      build:
+        description: 'Override the displayed build'
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-sbom
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.SECURITYSCAN_GITHUB_API_KEY }}
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install -r .github/scripts/publish/requirements.txt
+
+      - name: Prepare release
+        id: prepare
+        env:
+          GH_TOKEN: ${{ secrets.SECURITYSCAN_GITHUB_API_KEY }}
+          INPUT_RUN: ${{ inputs.run }}
+          INPUT_PROJECT: ${{ inputs.project }}
+          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_BUILD: ${{ inputs.build }}
+          INPUT_REPLACE: ${{ inputs.replace }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          ARGS=(--run "$INPUT_RUN" --project "$INPUT_PROJECT" --version "$INPUT_VERSION"
+                --build "$INPUT_BUILD" --pr-body-out "$RUNNER_TEMP/pr-body.md")
+          [ "$INPUT_REPLACE" = "true" ] && ARGS+=(--replace)
+          [ "$INPUT_DRY_RUN" = "true" ] && ARGS+=(--dry-run)
+          python .github/scripts/publish/publish.py prepare "${ARGS[@]}"
+
+      - name: Verify the site renders from releases.json
+        if: ${{ !inputs.dry_run }}
+        run: python .github/scripts/publish/site_render.py --check
+
+      - name: Push branch
+        if: ${{ !inputs.dry_run }}
+        env:
+          BRANCH: ${{ steps.prepare.outputs.branch }}-${{ github.run_id }}
+          TITLE: ${{ steps.prepare.outputs.title }}
+          ACTOR: ${{ github.actor }}
+          ACTOR_ID: ${{ github.actor_id }}
+        run: |
+          git config user.name "$ACTOR"
+          git config user.email "${ACTOR_ID}+${ACTOR}@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "$TITLE" -m "Published by the Publish SBOM workflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          git push origin "$BRANCH"
+
+      - name: Open pull request
+        if: ${{ !inputs.dry_run }}
+        env:
+          GH_TOKEN: ${{ secrets.SECURITYSCAN_GITHUB_API_KEY }}
+          BRANCH: ${{ steps.prepare.outputs.branch }}-${{ github.run_id }}
+          TITLE: ${{ steps.prepare.outputs.title }}
+        run: |
+          python .github/scripts/publish/publish.py open-pr \
+            --branch "$BRANCH" --title "$TITLE" --body-file "$RUNNER_TEMP/pr-body.md"
