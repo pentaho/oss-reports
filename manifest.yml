@@ -9,31 +9,27 @@
 #
 # Change Date: 2030-06-15
 # ******************************************************************************
-# Manifest for automated SBOM publishing
-# Maps pdia-security project names to product folders and metadata.
-# Used by CI to determine where to publish SBOMs after generation.
+# Product configuration for automated SBOM publishing
+# (.github/workflows/publish-sbom.yml -> .github/scripts/publish/publish.py).
 #
-# Build names follow the pattern: {project}-{branch}
-#   e.g. pdia-master, pdia-11.1, pdi-openlineage-plugin-ee-main
-# The project key is the build name minus the branch suffix.
-# Exception: pdc-docker-deployment (no branch suffix pattern).
+# Routing: a pdia-security (Xray) build name belongs to the project whose key
+# equals it or prefixes it followed by "-"; the longest matching key wins.
+#   pdia-11.0                             -> pdia
+#   pdi-openlineage-plugin-ee-release-0.7 -> pdi-openlineage-plugin-ee
+#   pdc-docker-deployment-release         -> pdc-docker-deployment
 #
-# Naming convention for published files (CycloneDX archive + PDF report):
-#   sbom-{build-name}-{version}.zip
-#   sbom-{build-name}-{version}.pdf
+# Version: the build number is split into the displayed version and build with
+# version_pattern (named groups "version" and "build"). The default is
+# '^(?P<version>.+)-(?P<build>[^-]+)$', e.g. 11.0.0.3-312 -> 11.0.0.3 / 312.
+# version_segments pads the version with ".0" up to that many segments.
+# The workflow's version/build inputs, then a "release" block in the run's
+# publish.json, take precedence over the pattern.
 #
-# Example: build "pdi-openlineage-plugin-ee-main" version "0.7.0-292"
-#   -> openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip
-#   -> openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.pdf
+# Published files: {folder}/sbom-{safe-build-name}-{build-number}.zip|.pdf, where
+# the safe build name replaces ":" with "-" and "/" with "_" (as pdia-security).
 #
-# Site automation:
-#   Each project has HTML comment markers inside its table body in index.html:
-#     <!-- project:{project-key} -->
-#     ... <tr> rows, newest first ...
-#     <!-- /project:{project-key} -->
-#   To publish: insert a new <tr> directly after the opening marker, copying
-#   an existing row (version, build, generated date, component count, ZIP and
-#   PDF links with file sizes).
+# Each project needs a <!-- project:{key} --> ... <!-- /project:{key} --> table
+# body in index.html; the rows are generated from releases.json.
 
 projects:
 
@@ -41,20 +37,16 @@ projects:
     name: "Pentaho Data Integration and Analytics"
     description: "Full Pentaho platform suite SBOM"
     folder: "pentaho-suite"
-    branches:
-      - master
-      - "11.1"
 
   pdi-openlineage-plugin-ee:
     name: "Pentaho Data Lineage Plugin"
     description: "OpenLineage plugin for Pentaho Data Integration"
     folder: "openlineage-plugin"
-    branches:
-      - main
-      - "1.1.0"
 
   pdc-docker-deployment:
     name: "Pentaho Data Catalog"
     description: "Pentaho Data Catalog SBOM"
     folder: "pentaho-catalog"
-    build_name_is_project: true  # no branch suffix pattern
+    # release-v11.0.0-c99927d -> 11.0.0.0 / c99927d
+    version_pattern: '^release-v(?P<version>\d+(?:\.\d+)*)-(?P<build>[0-9a-f]+)$'
+    version_segments: 4

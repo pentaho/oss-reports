@@ -1,0 +1,154 @@
+{
+  "releases": [
+    {
+      "project": "pdc-docker-deployment",
+      "version": "11.0.0.0",
+      "build": "c99927d",
+      "date": "2026-05-28",
+      "components": 8850,
+      "zip": {
+        "path": "pentaho-catalog/sbom-pdc-docker-deployment-release-release-v11.0.0-c99927d.zip",
+        "size": 20403088
+      },
+      "pdf": {
+        "path": "pentaho-catalog/sbom-pdc-docker-deployment-release-release-v11.0.0-c99927d.pdf",
+        "size": 1727368
+      }
+    },
+    {
+      "project": "pdi-openlineage-plugin-ee",
+      "version": "0.7.1",
+      "build": "353",
+      "date": "2026-07-14",
+      "components": 84,
+      "zip": {
+        "path": "openlineage-plugin/sbom-pdi-openlineage-plugin-0.7.1-353.zip",
+        "size": 101444
+      },
+      "pdf": {
+        "path": "openlineage-plugin/sbom-pdi-openlineage-plugin-0.7.1-353.pdf",
+        "size": 53916
+      }
+    },
+    {
+      "project": "pdi-openlineage-plugin-ee",
+      "version": "0.7.0",
+      "build": "292",
+      "date": "2026-04-30",
+      "components": 293,
+      "zip": {
+        "path": "openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.zip",
+        "size": 1605619
+      },
+      "pdf": {
+        "path": "openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.7.0-292.pdf",
+        "size": 194090
+      }
+    },
+    {
+      "project": "pdia",
+      "version": "11.0.0.3",
+      "build": "312",
+      "date": "2026-10-07",
+      "components": 2281,
+      "zip": {
+        "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.3-312.zip",
+        "size": 5811096
+      },
+      "pdf": {
+        "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.3-312.pdf",
+        "size": 585083
+      }
+    },
+    {
+      "project": "pdia",
+      "version": "11.0.0.2",
+      "build": "294",
+      "date": "2026-09-17",
+      "components": 2281,
+      "zip": {
+        "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.2-294.zip",
+        "size": 6817441
+      },
+      "pdf": {
+        "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.2-294.pdf",
+        "size": 587802
+      }
+    },
+    {
+      "project": "pdia",
+      "version": "11.0.0.1",
+      "build": "259",
+      "date": "2026-09-17",
+      "components": 2299,
+      "zip": {
+        "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.1-259.zip",
+        "size": 6357170
+      },
+      "pdf": {
+        "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.1-259.pdf",
+        "size": 586221
+      }
+    },
+    {
+      "project": "pdia",
+      "version": "11.0.0.0",
+      "build": "237",
+      "date": "2026-09-16",
+      "components": 2248,
+      "zip": {
+        "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.0-237.zip",
+        "size": 8171562
+      },
+      "pdf": {
+        "path": "pentaho-suite/sbom-pdia-11.0-11.0.0.0-237.pdf",
+        "size": 567092
+      }
+    },
+    {
+      "project": "pdia",
+      "version": "10.2.0.10",
+      "build": "438",
+      "date": "2026-10-07",
+      "components": 2064,
+      "zip": {
+        "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.10-438.zip",
+        "size": 6076858
+      },
+      "pdf": {
+        "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.10-438.pdf",
+        "size": 540618
+      }
+    },
+    {
+      "project": "pdia",
+      "version": "10.2.0.9",
+      "build": "418",
+      "date": "2026-08-26",
+      "components": 2068,
+      "zip": {
+        "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.9-418.zip",
+        "size": 7412064
+      },
+      "pdf": {
+        "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.9-418.pdf",
+        "size": 528272
+      }
+    },
+    {
+      "project": "pdia",
+      "version": "10.2.0.8",
+      "build": "403",
+      "date": "2026-08-26",
+      "components": 2077,
+      "zip": {
+        "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.8-403.zip",
+        "size": 7221829
+      },
+      "pdf": {
+        "path": "pentaho-suite/sbom-pdia-10.2-10.2.0.8-403.pdf",
+        "size": 523358
+      }
+    }
+  ]
+}

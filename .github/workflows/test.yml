@@ -1,0 +1,30 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Publisher tests and site check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install -r .github/scripts/publish/requirements.txt
+
+      - name: Unit tests
+        run: python -m unittest discover -s .github/scripts/publish/tests -v
+
+      - name: index.html is rendered from releases.json
+        run: python .github/scripts/publish/site_render.py --check
