@@ -43,7 +43,7 @@ MAX_FILE_BYTES = 95 * 1024 * 1024
 
 _RUN_URL_RE = re.compile(r"^https://github\.com/([^/]+/[^/]+)/actions/runs/(\d+)(?:[/?#].*)?$")
 # Version/build end up in file content, PR titles, branch names and step outputs.
-_SAFE_VALUE_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._+-]*$")
+_SAFE_VALUE_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._+-]*")
 _TITLE_RES = (
     re.compile(r"^SBOM Consolidation - (?P<name>.+) (?P<number>\S+)$"),
     re.compile(r"^Xray Build: (?P<name>.+) / (?P<number>\S+)$"),
@@ -153,7 +153,7 @@ def derive_release(build_number: str, cfg: dict, version: str | None = None,
             derived = ".".join(parts + ["0"] * (segments - len(parts)))
         version, build = version or derived, build or match.group("build")
     for label, value in (("version", version), ("build", build)):
-        if not _SAFE_VALUE_RE.match(value):
+        if not _SAFE_VALUE_RE.fullmatch(value):
             raise ValueError(f"{label} {value!r} may only contain letters, digits, '.', '_', "
                              "'+' and '-'")
     return version, build
@@ -313,15 +313,15 @@ def prepare(gh, run_id: int, root: Path = REPO_ROOT, project: str | None = None,
             "build": build,
             "date": timestamp[:10],
             "components": components,
-            "zip": {"path": f"{stem}.zip", "size": zip_file.stat().st_size},
-            "pdf": {"path": f"{stem}.pdf", "size": pdf_file.stat().st_size},
+            "zip": {"path": f"{stem}.zip", "size": zip_file.stat().st_size,
+                    "sha256": _sha256(zip_file)},
+            "pdf": {"path": f"{stem}.pdf", "size": pdf_file.stat().st_size, "sha256": pdf_sha},
             "source": {
                 "build_name": build_name,
                 "build_number": build_number,
                 "run_url": provenance.get("run_url") or run["html_url"],
                 "commit": provenance.get("commit") or run.get("head_sha"),
                 "sbom_sha256": sbom_sha,
-                "pdf_sha256": pdf_sha,
             },
         }
         releases.append(release)
@@ -362,8 +362,9 @@ def pr_body(rel: dict, product: str, verified: bool) -> str:
         f"| Components | {rel['components']:,} |",
         f"| CycloneDX | `{rel['zip']['path']}` ({site_render.human_size(rel['zip']['size'])}) |",
         f"| PDF | `{rel['pdf']['path']}` ({site_render.human_size(rel['pdf']['size'])}) |",
-        f"| SBOM sha256 | `{src['sbom_sha256']}` |",
-        f"| PDF sha256 | `{src['pdf_sha256']}` |",
+        f"| ZIP sha256 | `{rel['zip']['sha256']}` |",
+        f"| PDF sha256 | `{rel['pdf']['sha256']}` |",
+        f"| SBOM (.cdx.json) sha256 | `{src['sbom_sha256']}` |",
         "",
         check + ".",
         "",

@@ -1,0 +1,50 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # Root files plus these folders only: the release files stay in the repository
+      # and are linked from raw.githubusercontent.com.
+      - uses: actions/checkout@v6
+        with:
+          sparse-checkout: |
+            assets
+            .github/scripts/publish
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: index.html is rendered from releases.json
+        run: python .github/scripts/publish/site_render.py --check
+
+      - name: Stage site
+        run: |
+          mkdir _site
+          cp -r index.html LICENSE assets _site/
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
