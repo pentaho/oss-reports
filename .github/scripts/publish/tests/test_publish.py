@@ -96,6 +96,29 @@ class TestDeriveRelease(unittest.TestCase):
         self.assertEqual(publish.derive_release("nodash", cfg, version="1.0", build="5"),
                          ("1.0", "5"))
 
+    def test_line_breaks_and_markup_rejected(self):
+        cfg = PROJECTS["pdia"]
+        for bad in ("1.0\nbranch=evil", "1.0\r", "<b>", "a b"):
+            with self.assertRaisesRegex(ValueError, "version"):
+                publish.derive_release("11.0.0.3-312", cfg, version=bad)
+            with self.assertRaisesRegex(ValueError, "build"):
+                publish.derive_release("11.0.0.3-312", cfg, build=bad)
+
+
+class TestWriteOutputs(unittest.TestCase):
+    def test_multiline_value_rejected(self):
+        with tempfile.NamedTemporaryFile("w+", delete=False) as f:
+            path = f.name
+        self.addCleanup(os.unlink, path)
+        with unittest.mock.patch.dict(os.environ, {"GITHUB_OUTPUT": path}):
+            with self.assertRaisesRegex(ValueError, "line break"):
+                publish._write_outputs({"title": "x\nbranch=evil"})
+        self.assertEqual(Path(path).read_text(), "")
+
+    def test_branch_name_is_git_safe(self):
+        self.assertEqual(publish.branch_name("my build:x/y", "1.0-2"),
+                         "publish/sbom-my-build-x_y-1.0-2")
+
 
 class TestParseRunTitle(unittest.TestCase):
     def test_both_workflows(self):
@@ -182,7 +205,7 @@ class _Prepare(unittest.TestCase):
             "schema_version": 1,
             "build": {"name": self.build_name, "number": self.build_number, "safe_name": self.safe},
             "provenance": {"run_url": "https://github.com/pentaho/pdia-security/actions/runs/42",
-                           "commit": "abc123"},
+                           "commit": "abc123", "run_attempt": "1"},
             "sbom": {"file": f"sbom-{stem}.cdx.json", "artifact": self.names["sbom"],
                      "sha256": hashlib.sha256(self.sbom).hexdigest(), "size": len(self.sbom),
                      "component_count": 3, "timestamp": "2026-10-20T09:00:00Z",
@@ -210,6 +233,9 @@ class _Prepare(unittest.TestCase):
                "html_url": "https://github.com/pentaho/pdia-security/actions/runs/42",
                "created_at": "2026-10-20T08:00:00Z", "head_sha": "abc123",
                "display_title": title or f"Xray Build: {self.build_name} / {self.build_number}"}
+        if jobs is None:
+            jobs = [{"name": "Generate a snippet SBOM and consolidate it with the build / "
+                             "Consolidate SBOM", "conclusion": "success", "run_attempt": 1}]
         return FakeGitHub(run, arts, files, jobs)
 
     def prepare(self, gh, **kw):
@@ -282,6 +308,20 @@ class TestPrepareWithManifest(_Prepare):
     def test_incomplete_run_rejected(self):
         with self.assertRaisesRegex(ValueError, "in_progress"):
             self.prepare(self.fake(status="in_progress"))
+
+    def test_stale_manifest_from_earlier_attempt_rejected(self):
+        # attempt 1 succeeded and wrote publish.json; attempt 2 re-ran consolidation and failed
+        jobs = [{"name": "Consolidate SBOM", "conclusion": "failure", "run_attempt": 2}]
+        with self.assertRaisesRegex(ValueError, "Consolidate SBOM"):
+            self.prepare(self.fake(jobs=jobs))
+        jobs = [{"name": "Consolidate SBOM", "conclusion": "success", "run_attempt": 2}]
+        with self.assertRaisesRegex(ValueError, "attempt"):
+            self.prepare(self.fake(jobs=jobs))
+
+    def test_rerun_of_other_jobs_keeps_manifest_valid(self):
+        jobs = [{"name": "Consolidate SBOM", "conclusion": "success", "run_attempt": 1},
+                {"name": "Snippet CVE Scan", "conclusion": "success", "run_attempt": 2}]
+        self.assertTrue(self.prepare(self.fake(jobs=jobs))["verified"])
 
 
 class TestPrepareWithoutManifest(_Prepare):
@@ -364,6 +404,14 @@ class TestGitHubRetry(unittest.TestCase):
         req = urlopen.call_args[0][0]
         self.assertNotIn("Authorization", req.headers)
         self.assertEqual(req.unredirected_hdrs["Authorization"], "Bearer secret")
+
+    def test_only_https_urls_are_requested(self):
+        gh = publish.GitHub("t")
+        with unittest.mock.patch.object(publish.urllib.request, "urlopen") as urlopen:
+            for url in ("file:///etc/passwd", "http://example.com/x", "ftp://x/y"):
+                with self.assertRaisesRegex(ValueError, "https"):
+                    gh.download(url, os.devnull)
+        urlopen.assert_not_called()
 
 
 class TestPrBody(unittest.TestCase):

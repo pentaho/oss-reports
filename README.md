@@ -40,7 +40,7 @@ Run the **Publish SBOM** workflow (Actions -> Publish SBOM -> Run workflow) with
 | `run` | Run ID or URL (required) |
 | `dry_run` | Report what would be published in the job summary, change nothing |
 | `replace` | Re-publish a build that is already on the site |
-| `project`, `version`, `build` | Override the routing or the displayed version/build when `manifest.yml` gets it wrong |
+| `project`, `version`, `build` | Override the routing or the displayed version/build when `manifest.yml` gets it wrong (version/build: letters, digits, `.`, `_`, `+`, `-`) |
 
 The workflow uses the `SECURITYSCAN_GITHUB_API_KEY` secret (actions read on pdia-security, contents and pull requests write here).
 

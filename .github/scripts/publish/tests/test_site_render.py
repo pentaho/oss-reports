@@ -109,6 +109,14 @@ class TestRenderIndex(unittest.TestCase):
         once = site.render_index(_HTML, [_rel()])
         self.assertEqual(site.render_index(once, [_rel()]), once)
 
+    def test_project_without_releases_renders_empty(self):
+        html = _HTML.replace("<!-- /project:pdia -->\n",
+                             "<!-- /project:pdia -->\n<!-- project:other -->\n"
+                             "            <tr>old row</tr>\n<!-- /project:other -->\n")
+        out = site.render_index(html, [_rel()])
+        self.assertNotIn("old row", out)
+        self.assertIn("<!-- project:other -->\n<!-- /project:other -->", out)
+
 
 class TestValidateReleases(unittest.TestCase):
     def test_duplicate_zip_path_rejected(self):

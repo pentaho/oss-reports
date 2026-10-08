@@ -120,7 +120,11 @@ def _replace_stat(text: str, label: str, value: int) -> str:
 def render_index(text: str, releases: list) -> str:
     validate_releases(releases)
     latest = latest_keys(releases)
-    for project in sorted({r["project"] for r in releases}):
+    markers = re.findall(r"<!-- project:(\S+) -->", text)
+    missing = sorted({r["project"] for r in releases} - set(markers))
+    if missing:
+        raise ValueError(f"index.html has no <!-- project:{missing[0]} --> marker")
+    for project in markers:
         rows = "".join(
             _row(r, (r["project"], r["version"], r["build"]) in latest)
             for r in sort_releases([r for r in releases if r["project"] == project])
@@ -129,8 +133,6 @@ def render_index(text: str, releases: list) -> str:
             rf"(<!-- project:{re.escape(project)} -->\n).*?(<!-- /project:{re.escape(project)} -->)",
             re.S,
         )
-        if not pattern.search(text):
-            raise ValueError(f"index.html has no <!-- project:{project} --> marker")
         text = pattern.sub(lambda m: m.group(1) + rows + m.group(2), text, count=1)
     text = _replace_stat(text, "Products", len({r["project"] for r in releases}))
     return _replace_stat(text, "Current releases", len(releases))

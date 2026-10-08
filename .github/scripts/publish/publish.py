@@ -42,6 +42,8 @@ DEFAULT_VERSION_PATTERN = r"^(?P<version>.+)-(?P<build>[^-]+)$"
 MAX_FILE_BYTES = 95 * 1024 * 1024
 
 _RUN_URL_RE = re.compile(r"^https://github\.com/([^/]+/[^/]+)/actions/runs/(\d+)(?:[/?#].*)?$")
+# Version/build end up in file content, PR titles, branch names and step outputs.
+_SAFE_VALUE_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._+-]*$")
 _TITLE_RES = (
     re.compile(r"^SBOM Consolidation - (?P<name>.+) (?P<number>\S+)$"),
     re.compile(r"^Xray Build: (?P<name>.+) / (?P<number>\S+)$"),
@@ -53,8 +55,10 @@ class GitHub:
         self.token, self.api = token, api
 
     def _request(self, url: str, method: str = "GET", body: dict | None = None):
-        if not url.startswith("https://"):
+        if url.startswith("/"):
             url = self.api + url
+        elif not url.startswith("https://"):
+            raise ValueError(f"refusing to request a non-https URL: {url!r}")
         data = json.dumps(body).encode() if body is not None else None
         req = urllib.request.Request(url, data=data, method=method)
         # Not forwarded on redirect: artifact downloads 302 to blob storage.
@@ -88,6 +92,11 @@ class GitHub:
 
 def safe_name(build_name: str) -> str:
     return build_name.replace(":", "-").replace("/", "_")
+
+
+def branch_name(build_name: str, build_number: str) -> str:
+    return re.sub(r"[^A-Za-z0-9._/-]", "-",
+                  f"publish/sbom-{safe_name(build_name)}-{build_number}")
 
 
 def parse_run_id(value: str) -> int:
@@ -132,18 +141,22 @@ def derive_release(build_number: str, cfg: dict, version: str | None = None,
     manifest_release = manifest_release or {}
     version = version or manifest_release.get("version")
     build = build or manifest_release.get("build")
-    if version and build:
-        return version, build
-    match = re.match(cfg.get("version_pattern") or DEFAULT_VERSION_PATTERN, build_number)
-    if not match:
-        raise ValueError(f"build number {build_number!r} does not match the project's "
-                         "version_pattern; pass --version and --build")
-    derived = match.group("version")
-    segments = cfg.get("version_segments")
-    if segments:
-        parts = derived.split(".")
-        derived = ".".join(parts + ["0"] * (segments - len(parts)))
-    return version or derived, build or match.group("build")
+    if not (version and build):
+        match = re.match(cfg.get("version_pattern") or DEFAULT_VERSION_PATTERN, build_number)
+        if not match:
+            raise ValueError(f"build number {build_number!r} does not match the project's "
+                             "version_pattern; pass --version and --build")
+        derived = match.group("version")
+        segments = cfg.get("version_segments")
+        if segments:
+            parts = derived.split(".")
+            derived = ".".join(parts + ["0"] * (segments - len(parts)))
+        version, build = version or derived, build or match.group("build")
+    for label, value in (("version", version), ("build", build)):
+        if not _SAFE_VALUE_RE.match(value):
+            raise ValueError(f"{label} {value!r} may only contain letters, digits, '.', '_', "
+                             "'+' and '-'")
+    return version, build
 
 
 def _paginate(gh, path: str, key: str) -> list:
@@ -179,11 +192,20 @@ def _fetch_single_file(gh, artifact: dict, workdir: Path) -> Path:
     return target
 
 
-def _consolidation_succeeded(gh, run_id: int) -> bool:
+def _check_consolidation(gh, run_id: int, manifest_attempt=None) -> None:
+    """The latest attempt of the Consolidate SBOM job must have succeeded and, when
+    publish.json is used, be the attempt that wrote it (a failed re-run leaves the
+    earlier attempt's artifacts on the run)."""
     jobs = _paginate(gh, f"/repos/{SOURCE_REPO}/actions/runs/{run_id}/jobs", "jobs")
     found = [j for j in jobs
              if j["name"] == CONSOLIDATE_JOB or j["name"].endswith(f"/ {CONSOLIDATE_JOB}")]
-    return bool(found) and all(j.get("conclusion") == "success" for j in found)
+    if not found or any(j.get("conclusion") != "success" for j in found):
+        raise ValueError(f"the run's latest '{CONSOLIDATE_JOB}' job did not succeed")
+    if manifest_attempt is not None:
+        attempts = {str(j.get("run_attempt")) for j in found}
+        if attempts != {str(manifest_attempt)}:
+            raise ValueError(f"publish.json is from attempt {manifest_attempt} but the latest "
+                             f"'{CONSOLIDATE_JOB}' job ran in attempt {', '.join(sorted(attempts))}")
 
 
 def _locate(gh, run: dict, artifacts: dict, workdir: Path):
@@ -202,6 +224,7 @@ def _locate(gh, run: dict, artifacts: dict, workdir: Path):
             pdf = artifacts[manifest["pdf"]["artifact"]]
         except KeyError as exc:
             raise ValueError(f"artifact {exc} named by publish.json is missing") from None
+        _check_consolidation(gh, run["id"], (manifest.get("provenance") or {}).get("run_attempt"))
         return manifest["build"]["name"], manifest["build"]["number"], sbom, pdf, manifest
 
     pdfs = [n for n in artifacts if n.startswith("sbom-pdf-")]
@@ -216,8 +239,7 @@ def _locate(gh, run: dict, artifacts: dict, workdir: Path):
     if not parsed or f"{safe_name(parsed[0])}-{parsed[1]}" != stem:
         raise ValueError(f"run title {run.get('display_title')!r} does not match "
                          f"artifact {pdfs[0]}")
-    if not _consolidation_succeeded(gh, run["id"]):
-        raise ValueError(f"the run's '{CONSOLIDATE_JOB}' job did not succeed")
+    _check_consolidation(gh, run["id"])
     return parsed[0], parsed[1], artifacts[f"sbom-{stem}"], artifacts[pdfs[0]], None
 
 
@@ -318,7 +340,7 @@ def prepare(gh, run_id: int, root: Path = REPO_ROOT, project: str | None = None,
         "verified": manifest is not None,
         "product": cfg.get("name", key),
         "replaced": bool(existing),
-        "branch": f"publish/sbom-{safe_name(build_name)}-{build_number}",
+        "branch": branch_name(build_name, build_number),
         "title": f"Publish {cfg.get('name', key)} {version} build {build} SBOM",
     }
 
@@ -351,6 +373,9 @@ def pr_body(rel: dict, product: str, verified: bool) -> str:
 
 
 def _write_outputs(values: dict) -> None:
+    for key, value in values.items():
+        if "\n" in str(value) or "\r" in str(value):
+            raise ValueError(f"output {key} contains a line break")
     path = os.environ.get("GITHUB_OUTPUT")
     if path:
         with open(path, "a", encoding="utf-8") as f:
