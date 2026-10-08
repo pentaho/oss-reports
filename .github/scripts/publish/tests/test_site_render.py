@@ -4,6 +4,7 @@ import copy
 import hashlib
 import json
 import os
+import re
 import sys
 import tempfile
 import unittest
@@ -110,15 +111,24 @@ class TestRenderIndex(unittest.TestCase):
 
     def test_checksum_popover(self):
         out = site.render_index(_HTML, [_rel(), _rel(version="10.2.0.9", build="418")])
-        self.assertIn('popovertarget="sha-pdia-11-0-0-3-312"', out)
-        self.assertIn('id="sha-pdia-11-0-0-3-312" popover', out)
-        self.assertIn('id="sha-pdia-10-2-0-9-418" popover', out)
+        targets = re.findall(r'popovertarget="([^"]+)"', out)
+        ids = re.findall(r'id="([^"]+)" popover', out)
+        self.assertEqual(len(targets), 2)
+        self.assertEqual(targets, ids)
         self.assertEqual(out.count('data-copy="' + "a" * 64 + '"'), 2)
         self.assertEqual(out.count('data-copy="' + "b" * 64 + '"'), 2)
 
+    def test_checksum_popover_ids_unique_when_values_sanitize_alike(self):
+        rels = [_rel(version="1.0+rc", build="1"), _rel(version="1.0-rc", build="1"),
+                _rel(version="1.0_rc", build="1")]
+        ids = re.findall(r'id="([^"]+)" popover', site.render_index(_HTML, rels))
+        self.assertEqual(len(ids), 3)
+        self.assertEqual(len(set(ids)), 3)
+
     def test_checksum_popover_ids_are_safe(self):
         out = site.render_index(_HTML, [_rel(build='x" onclick="y')])
-        self.assertIn('id="sha-pdia-11-0-0-3-x-onclick-y" popover', out)
+        self.assertRegex(out, r'id="sha-[0-9a-f]{12}" popover')
+        self.assertNotIn('onclick="y', out)
 
     def test_unknown_project_marker_fails(self):
         with self.assertRaisesRegex(ValueError, "project:nope"):
@@ -149,7 +159,7 @@ class TestValidateReleases(unittest.TestCase):
             site.validate_releases([rel])
 
     def test_bad_or_missing_sha256_rejected(self):
-        for bad in (None, "abc", "Z" * 64):
+        for bad in (None, "abc", "Z" * 64, "a" * 64 + "\n"):
             rel = _rel()
             if bad is None:
                 del rel["pdf"]["sha256"]

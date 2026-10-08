@@ -12,6 +12,7 @@ Usage: site_render.py [--check]   (--check fails if index.html is out of date)
 """
 
 import argparse
+import hashlib
 import html
 import json
 import re
@@ -22,7 +23,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 REQUIRED_FIELDS = ("project", "version", "build", "date", "components", "zip", "pdf")
 # Release files are not deployed to Pages; they are served from the repository.
 RAW_BASE = "https://raw.githubusercontent.com/pentaho/oss-reports/main/"
-_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_SHA256_RE = re.compile(r"[0-9a-f]{64}")
 
 _ZIP_ICON = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
              'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
@@ -77,7 +78,7 @@ def validate_releases(releases: list) -> None:
         for kind in ("zip", "pdf"):
             if not rel[kind].get("path") or not isinstance(rel[kind].get("size"), int):
                 raise ValueError(f"release {rel['version']} needs {kind}.path and {kind}.size")
-            if not _SHA256_RE.match(str(rel[kind].get("sha256", ""))):
+            if not _SHA256_RE.fullmatch(str(rel[kind].get("sha256", ""))):
                 raise ValueError(f"release {rel['version']} needs a lowercase hex {kind}.sha256")
         if rel["zip"]["path"] in seen:
             raise ValueError(f"duplicate release {rel['zip']['path']}")
@@ -100,8 +101,8 @@ def save_releases(path: Path, releases: list) -> None:
 
 
 def _checksums(rel: dict, label: str) -> str:
-    pid = "sha-" + re.sub(r"[^a-z0-9]+", "-",
-                          f"{rel['project']}-{rel['version']}-{rel['build']}".lower()).strip("-")
+    # The ZIP path is unique per release (validate_releases); release values may sanitize alike.
+    pid = "sha-" + hashlib.sha256(rel["zip"]["path"].encode()).hexdigest()[:12]
     entries = "".join(
         f'<dt>{name}</dt><dd><code>{rel[kind]["sha256"]}</code>'
         f'<button type="button" class="copy" data-copy="{rel[kind]["sha256"]}" '

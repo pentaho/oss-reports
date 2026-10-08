@@ -98,7 +98,7 @@ class TestDeriveRelease(unittest.TestCase):
 
     def test_line_breaks_and_markup_rejected(self):
         cfg = PROJECTS["pdia"]
-        for bad in ("1.0\nbranch=evil", "1.0\r", "<b>", "a b"):
+        for bad in ("1.0\nbranch=evil", "1.0\r", "<b>", "a b", "1.0\n"):
             with self.assertRaisesRegex(ValueError, "version"):
                 publish.derive_release("11.0.0.3-312", cfg, version=bad)
             with self.assertRaisesRegex(ValueError, "build"):

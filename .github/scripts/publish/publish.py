@@ -43,7 +43,7 @@ MAX_FILE_BYTES = 95 * 1024 * 1024
 
 _RUN_URL_RE = re.compile(r"^https://github\.com/([^/]+/[^/]+)/actions/runs/(\d+)(?:[/?#].*)?$")
 # Version/build end up in file content, PR titles, branch names and step outputs.
-_SAFE_VALUE_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._+-]*$")
+_SAFE_VALUE_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._+-]*")
 _TITLE_RES = (
     re.compile(r"^SBOM Consolidation - (?P<name>.+) (?P<number>\S+)$"),
     re.compile(r"^Xray Build: (?P<name>.+) / (?P<number>\S+)$"),
@@ -153,7 +153,7 @@ def derive_release(build_number: str, cfg: dict, version: str | None = None,
             derived = ".".join(parts + ["0"] * (segments - len(parts)))
         version, build = version or derived, build or match.group("build")
     for label, value in (("version", version), ("build", build)):
-        if not _SAFE_VALUE_RE.match(value):
+        if not _SAFE_VALUE_RE.fullmatch(value):
             raise ValueError(f"{label} {value!r} may only contain letters, digits, '.', '_', "
                              "'+' and '-'")
     return version, build
