@@ -272,9 +272,12 @@ class TestPrepareWithManifest(_Prepare):
         self.assertIn(rel, releases)
         html = (self.root / "index.html").read_text()
         self.assertEqual(site_render.render_index(html, releases), html)
-        self.assertIn('<span class="version">11.0.0.4</span><span class="latest">Latest</span>', html)
-        self.assertNotIn('<span class="version">11.0.0.3</span><span class="latest">', html)
-        self.assertIn("<strong>11</strong><span>Current releases</span>", html)
+        # "Latest" is per project; another product's latest may be 11.0.0.3.
+        pdia = html.split("<!-- project:pdia -->")[1].split("<!-- /project:pdia -->")[0]
+        self.assertIn('<span class="version">11.0.0.4</span><span class="latest">Latest</span>', pdia)
+        self.assertNotIn('<span class="version">11.0.0.3</span><span class="latest">', pdia)
+        before = len(site_render.load_releases(REPO_ROOT / "releases.json"))
+        self.assertIn(f"<strong>{before + 1}</strong><span>Current releases</span>", html)
 
     def test_sha_mismatch_rejected(self):
         bad = self.manifest_json()
