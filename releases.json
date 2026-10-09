@@ -169,6 +169,30 @@
         "size": 523358,
         "sha256": "3e7213eb5e65fe85eb422d90de8c4c96aebfd221e87f7abf7d6093ad31c07b43"
       }
+    },
+    {
+      "project": "pdia-containers",
+      "version": "11.0.0.3",
+      "build": "312",
+      "date": "2026-10-09",
+      "components": 1364,
+      "zip": {
+        "path": "pentaho-containers/sbom-pdia-containers-11.0-11.0.0.3-312.zip",
+        "size": 4775623,
+        "sha256": "f22cb9dca927e95e02f560c5bc2029bb61a467b0226839c0178bea0e48393498"
+      },
+      "pdf": {
+        "path": "pentaho-containers/sbom-pdia-containers-11.0-11.0.0.3-312.pdf",
+        "size": 582621,
+        "sha256": "ad547a0230e09507704ff79512303f42deee86165cda012d9f73933c7b605c76"
+      },
+      "source": {
+        "build_name": "pdia-containers-11.0",
+        "build_number": "11.0.0.3-312",
+        "run_url": "https://github.com/pentaho/pdia-security/actions/runs/37964577148",
+        "commit": "c6ea7b8d558dde618abc322e51b2db68c7e001fd",
+        "sbom_sha256": "7520bf98aa3e6db3a926bf5520ce21f701b2ead57cbe137343b0f77aa829057b"
+      }
     }
   ]
 }
