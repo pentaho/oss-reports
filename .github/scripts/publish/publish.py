@@ -279,7 +279,11 @@ def prepare(gh, run_id: int, root: Path = REPO_ROOT, project: str | None = None,
             sbom = json.load(f)
         if sbom.get("bomFormat") != "CycloneDX":
             raise ValueError(f"{sbom_file.name} is not a CycloneDX SBOM")
-        components = len(sbom.get("components") or [])
+        components = sum(
+            1 for c in sbom.get("components") or []
+            if not any(p.get("name") == "pdia:role" and p.get("value") == "artifact"
+                       for p in c.get("properties", []) or [])
+        )
         if not components:
             raise ValueError(f"{sbom_file.name} has no components")
         if manifest and manifest["sbom"].get("component_count") != components:
