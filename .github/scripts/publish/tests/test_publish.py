@@ -243,6 +243,17 @@ class _Prepare(unittest.TestCase):
 
 
 class TestPrepareWithManifest(_Prepare):
+    def test_build_artifact_nodes_are_not_components(self):
+        """pdia-security's graph layer (pdia:role=artifact) is not counted."""
+        sbom = json.loads(self.sbom)
+        sbom["components"].append({
+            "type": "application", "name": "pentaho-server-ee.zip",
+            "properties": [{"name": "pdia:role", "value": "artifact"}],
+        })
+        self.sbom = json.dumps(sbom).encode()
+        rel = self.prepare(self.fake())["release"]
+        self.assertEqual(rel["components"], 3)
+
     def test_publishes_files_and_release(self):
         result = self.prepare(self.fake())
         self.assertTrue(result["verified"])
