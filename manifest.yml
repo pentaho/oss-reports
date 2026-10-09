@@ -38,6 +38,12 @@ projects:
     description: "Full Pentaho platform suite SBOM"
     folder: "pentaho-suite"
 
+  # pdia-containers-main / -11.0 / -10.2: the pdi and pentaho-server Docker images.
+  pdia-containers:
+    name: "Pentaho Container Images"
+    description: "Pentaho Data Integration and Pentaho Server Docker images SBOM"
+    folder: "pentaho-containers"
+
   pdi-openlineage-plugin-ee:
     name: "Pentaho Data Lineage Plugin"
     description: "OpenLineage plugin for Pentaho Data Integration"

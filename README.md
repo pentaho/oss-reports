@@ -17,6 +17,7 @@ Each release is published in two formats, side by side:
 |---|---|
 | `index.html`, `assets/` | The GitHub Pages site (static HTML, CSS and a small copy-to-clipboard script). Only these files and `LICENSE` are deployed, by `.github/workflows/pages.yml` |
 | `pentaho-suite/` | Pentaho Data Integration and Analytics |
+| `pentaho-containers/` | Pentaho Container Images (`pdi` and `pentaho-server` Docker images) |
 | `openlineage-plugin/` | Pentaho Data Lineage Plugin |
 | `pentaho-catalog/` | Pentaho Data Catalog |
 | `archive/` | Legacy reports (PDF, TXT, ZIP) published before the CycloneDX format |

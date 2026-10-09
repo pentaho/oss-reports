@@ -10,6 +10,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import yaml
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import site_render as site
@@ -203,6 +205,14 @@ class TestRepositoryIsInSync(unittest.TestCase):
         before = copy.deepcopy(releases)
         site.render_index((REPO_ROOT / "index.html").read_text(encoding="utf-8"), releases)
         self.assertEqual(releases, before)
+
+    def test_every_manifest_project_has_an_index_section(self):
+        with open(REPO_ROOT / "manifest.yml", encoding="utf-8") as f:
+            projects = yaml.safe_load(f)["projects"]
+        html = (REPO_ROOT / "index.html").read_text(encoding="utf-8")
+        for key in projects:
+            self.assertIn(f"<!-- project:{key} -->", html, key)
+            self.assertIn(f"<!-- /project:{key} -->", html, key)
 
 
 if __name__ == "__main__":

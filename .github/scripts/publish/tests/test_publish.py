@@ -45,6 +45,9 @@ class TestRouteProject(unittest.TestCase):
         cases = {
             "pdia-11.0": "pdia",
             "pdia-master": "pdia",
+            "pdia-containers-main": "pdia-containers",
+            "pdia-containers-11.0": "pdia-containers",
+            "pdia-containers-10.2": "pdia-containers",
             "pdi-openlineage-plugin-ee-release-0.7": "pdi-openlineage-plugin-ee",
             "pdi-openlineage-plugin-ee-main": "pdi-openlineage-plugin-ee",
             "pdc-docker-deployment-release": "pdc-docker-deployment",
