@@ -52,6 +52,9 @@ class TestRouteProject(unittest.TestCase):
             "pdi-openlineage-plugin-ee-main": "pdi-openlineage-plugin-ee",
             "pdc-docker-deployment-release": "pdc-docker-deployment",
             "pdc-docker-deployment": "pdc-docker-deployment",
+            "pdi-plugin-salesforce-ee-main": "pdi-plugin-salesforce-ee",
+            "pentaho-app-shell-master": "pentaho-app-shell",
+            "semantic-model-editor-main": "semantic-model-editor",
         }
         for build, key in cases.items():
             self.assertEqual(publish.route_project(build, PROJECTS), key, build)
@@ -260,8 +263,8 @@ class TestPrepareWithManifest(_Prepare):
     def test_publishes_files_and_release(self):
         result = self.prepare(self.fake())
         self.assertTrue(result["verified"])
-        zip_path = self.root / "pentaho-suite" / "sbom-pdia-11.0-11.0.0.4-330.zip"
-        pdf_path = self.root / "pentaho-suite" / "sbom-pdia-11.0-11.0.0.4-330.pdf"
+        zip_path = self.root / "reports" / "pentaho-suite" / "sbom-pdia-11.0-11.0.0.4-330.zip"
+        pdf_path = self.root / "reports" / "pentaho-suite" / "sbom-pdia-11.0-11.0.0.4-330.pdf"
         with zipfile.ZipFile(zip_path) as zf:
             self.assertEqual(zf.namelist(), ["sbom-pdia-11.0-11.0.0.4-330.cdx.json"])
             self.assertEqual(zf.read(zf.namelist()[0]), self.sbom)
@@ -271,7 +274,7 @@ class TestPrepareWithManifest(_Prepare):
         self.assertEqual((rel["project"], rel["version"], rel["build"], rel["date"],
                           rel["components"]),
                          ("pdia", "11.0.0.4", "330", "2026-10-20", 3))
-        self.assertEqual(rel["zip"], {"path": "pentaho-suite/sbom-pdia-11.0-11.0.0.4-330.zip",
+        self.assertEqual(rel["zip"], {"path": "reports/pentaho-suite/sbom-pdia-11.0-11.0.0.4-330.zip",
                                       "size": zip_path.stat().st_size,
                                       "sha256": hashlib.sha256(zip_path.read_bytes()).hexdigest()})
         self.assertEqual(rel["pdf"]["sha256"], hashlib.sha256(_PDF).hexdigest())
@@ -295,7 +298,7 @@ class TestPrepareWithManifest(_Prepare):
         bad["sbom"]["sha256"] = "0" * 64
         with self.assertRaisesRegex(ValueError, "sha256"):
             self.prepare(self.fake(manifest=bad))
-        self.assertFalse((self.root / "pentaho-suite" / "sbom-pdia-11.0-11.0.0.4-330.zip").exists())
+        self.assertFalse((self.root / "reports" / "pentaho-suite" / "sbom-pdia-11.0-11.0.0.4-330.zip").exists())
 
     def test_unsupported_schema_rejected(self):
         with self.assertRaisesRegex(ValueError, "schema_version"):
@@ -307,7 +310,8 @@ class TestPrepareWithManifest(_Prepare):
             self.prepare(self.fake())
         self.prepare(self.fake(), replace=True)
         releases = site_render.load_releases(self.root / "releases.json")
-        self.assertEqual(sum(r["version"] == "11.0.0.4" for r in releases), 1)
+        path = "reports/pentaho-suite/sbom-pdia-11.0-11.0.0.4-330.zip"
+        self.assertEqual(sum(r["zip"]["path"] == path for r in releases), 1)
 
     def test_overrides(self):
         rel = self.prepare(self.fake(), version="11.0.0.4-hotfix", build="331")["release"]
@@ -390,7 +394,7 @@ class TestPrepareGuards(_Prepare):
         self.addCleanup(setattr, publish, "MAX_FILE_BYTES", original)
         with self.assertRaisesRegex(ValueError, "100 MB"):
             self.prepare(self.fake())
-        self.assertFalse((self.root / "pentaho-suite" / "sbom-pdia-11.0-11.0.0.4-330.zip").exists())
+        self.assertFalse((self.root / "reports" / "pentaho-suite" / "sbom-pdia-11.0-11.0.0.4-330.zip").exists())
 
 
 class TestGitHubRetry(unittest.TestCase):

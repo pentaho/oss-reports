@@ -36,23 +36,42 @@ projects:
   pdia:
     name: "Pentaho Data Integration and Analytics"
     description: "Full Pentaho platform suite SBOM"
-    folder: "pentaho-suite"
+    folder: "reports/pentaho-suite"
 
   # pdia-containers-main / -11.0 / -10.2: the pdi and pentaho-server Docker images.
   pdia-containers:
     name: "Pentaho Container Images"
     description: "Pentaho Data Integration and Pentaho Server Docker images SBOM"
-    folder: "pentaho-containers"
+    folder: "reports/pentaho-containers"
 
   pdi-openlineage-plugin-ee:
     name: "Pentaho Data Lineage Plugin"
     description: "OpenLineage plugin for Pentaho Data Integration"
-    folder: "openlineage-plugin"
+    folder: "reports/openlineage-plugin"
+
+  pdi-plugin-salesforce-ee:
+    name: "Pentaho Salesforce Plugin"
+    description: "Salesforce plugin for Pentaho Data Integration"
+    folder: "reports/salesforce-plugin"
+
+  # Release build numbers are plain versions (0.1.16): pass --version and
+  # --build (the release commit's short SHA).
+  pentaho-app-shell:
+    name: "Pentaho App Shell"
+    description: "Pentaho App Shell SBOM"
+    folder: "reports/app-shell"
+
+  # Release build numbers are plain versions (1.0.2): pass --version and
+  # --build (the release commit's short SHA).
+  semantic-model-editor:
+    name: "Pentaho Semantic Model Editor"
+    description: "Pentaho Semantic Model Editor plugin SBOM"
+    folder: "reports/semantic-model-editor"
 
   pdc-docker-deployment:
     name: "Pentaho Data Catalog"
     description: "Pentaho Data Catalog SBOM"
-    folder: "pentaho-catalog"
+    folder: "reports/pentaho-catalog"
     # release-v11.0.0-c99927d -> 11.0.0.0 / c99927d
     version_pattern: '^release-v(?P<version>\d+(?:\.\d+)*)-(?P<build>[0-9a-f]+)$'
     version_segments: 4

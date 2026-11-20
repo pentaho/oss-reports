@@ -16,11 +16,14 @@ Each release is published in two formats, side by side:
 | Path | Contents |
 |---|---|
 | `index.html`, `assets/` | The GitHub Pages site (static HTML, CSS and a small copy-to-clipboard script). Only these files and `LICENSE` are deployed, by `.github/workflows/pages.yml` |
-| `pentaho-suite/` | Pentaho Data Integration and Analytics |
-| `pentaho-containers/` | Pentaho Container Images (`pdi` and `pentaho-server` Docker images) |
-| `openlineage-plugin/` | Pentaho Data Lineage Plugin |
-| `pentaho-catalog/` | Pentaho Data Catalog |
-| `archive/` | Legacy reports (PDF, TXT, ZIP) published before the CycloneDX format |
+| `reports/pentaho-suite/` | Pentaho Data Integration and Analytics |
+| `reports/pentaho-containers/` | Pentaho Container Images (`pdi` and `pentaho-server` Docker images) |
+| `reports/openlineage-plugin/` | Pentaho Data Lineage Plugin |
+| `reports/salesforce-plugin/` | Pentaho Salesforce Plugin |
+| `reports/app-shell/` | Pentaho App Shell |
+| `reports/semantic-model-editor/` | Pentaho Semantic Model Editor |
+| `reports/pentaho-catalog/` | Pentaho Data Catalog |
+| `reports/archive/` | Legacy reports (PDF, TXT, ZIP) published before the CycloneDX format |
 | `releases.json` | Source of truth for every CycloneDX release: product, version, build, date, component count, files with size and SHA-256, plus the source pdia-security run for automated publishes |
 | `manifest.yml` | Product configuration: folder, build-name routing and version rules for automated publishing |
 | `.github/workflows/publish-sbom.yml` | Publishes a pdia-security run as a pull request |

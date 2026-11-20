@@ -214,6 +214,23 @@ class TestRepositoryIsInSync(unittest.TestCase):
             self.assertIn(f"<!-- project:{key} -->", html, key)
             self.assertIn(f"<!-- /project:{key} -->", html, key)
 
+    def test_release_files_live_under_reports(self):
+        with open(REPO_ROOT / "manifest.yml", encoding="utf-8") as f:
+            projects = yaml.safe_load(f)["projects"]
+        for key, cfg in projects.items():
+            self.assertTrue(cfg["folder"].startswith("reports/"), key)
+        for rel in site.load_releases(REPO_ROOT / "releases.json"):
+            for kind in ("zip", "pdf"):
+                self.assertTrue(rel[kind]["path"].startswith("reports/"), rel[kind]["path"])
+
+    def test_every_download_link_is_a_file_under_reports(self):
+        html = (REPO_ROOT / "index.html").read_text(encoding="utf-8")
+        links = re.findall(rf'href="{re.escape(site.RAW_BASE)}([^"]+)"', html)
+        self.assertTrue(links)
+        for path in links:
+            self.assertTrue(path.startswith("reports/"), path)
+            self.assertTrue((REPO_ROOT / path).is_file(), path)
+
 
 if __name__ == "__main__":
     unittest.main()
