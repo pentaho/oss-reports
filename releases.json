@@ -19,6 +19,30 @@
     },
     {
       "project": "pdi-openlineage-plugin-ee",
+      "version": "0.8.0",
+      "build": "377",
+      "date": "2026-11-23",
+      "components": 333,
+      "zip": {
+        "path": "reports/openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.8.0-377.zip",
+        "size": 1065884,
+        "sha256": "b2bd8ea5d77745e3000bc09a745a7dcebfa52fd3eee3f123c2b693126fdb4b83"
+      },
+      "pdf": {
+        "path": "reports/openlineage-plugin/sbom-pdi-openlineage-plugin-ee-main-0.8.0-377.pdf",
+        "size": 231422,
+        "sha256": "fdbdb2070d89b649196943dcbfbee947ba792259b76d787270f5f88a056a27d0"
+      },
+      "source": {
+        "build_name": "pdi-openlineage-plugin-ee-main",
+        "build_number": "0.8.0-377",
+        "run_url": "https://github.com/pentaho/pdia-security/actions/runs/45186103081",
+        "commit": "a5f00df1aaaf6f095c24a86ec62382898eb11ab1",
+        "sbom_sha256": "a7421d31e1762fe6b8f1ccb3582c1729953bf4db226405e57608f49ddacd1cf6"
+      }
+    },
+    {
+      "project": "pdi-openlineage-plugin-ee",
       "version": "0.7.1",
       "build": "353",
       "date": "2026-07-14",
